@@ -51,18 +51,7 @@ document.addEventListener("keydown", (e) => {
     const allTabs = Array.from(modal.querySelectorAll(".tab"));
     const currentIndex = allTabs.indexOf(activeTab);
     const nextIndex = (currentIndex + 1) % allTabs.length;
-    showTab(nextIndex);
     allTabs[nextIndex].focus();
-    e.preventDefault();
-  }
-
-  if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-    const activeTab = modal.querySelector(".tab.active");
-    const allTabs = Array.from(modal.querySelectorAll(".tab"));
-    const currentIndex = allTabs.indexOf(activeTab);
-    const prevIndex = (currentIndex - 1 + allTabs.length) % allTabs.length;
-    showTab(prevIndex);
-    allTabs[prevIndex].focus();
     e.preventDefault();
   }
 });
@@ -89,10 +78,14 @@ const elementItems = document.querySelectorAll(".element-item");
 
 elementButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    elementButtons.forEach(b => b.classList.remove("active"));
+    elementButtons.forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-expanded", "false");
+    });
     elementItems.forEach(item => item.classList.remove("active"));
 
     btn.classList.add("active");
+    btn.setAttribute("aria-expanded", "true");
     const elementId = btn.dataset.element;
     document.getElementById(elementId).classList.add("active");
   });
