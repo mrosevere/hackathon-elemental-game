@@ -5,8 +5,6 @@ const modal = document.getElementById("rulesModal");
 const tabs = document.querySelectorAll(".tab");
 const sections = document.querySelectorAll(".content-section");
 const content = document.getElementById("content");
-const title = document.getElementById("content-title");
-const text = document.getElementById("content-text");
 
 // OPEN MODAL
 openBtn.addEventListener("click", () => {
