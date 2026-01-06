@@ -1,26 +1,69 @@
+const modal = document.getElementById("rulesModal");
 const openBtn = document.getElementById("openModal");
 const closeBtn = document.getElementById("closeModal");
-const modal = document.getElementById("rulesModal");
 
 const tabs = document.querySelectorAll(".tab");
 const sections = document.querySelectorAll(".content-section");
 const content = document.getElementById("content");
 
 // OPEN MODAL
-openBtn.addEventListener("click", () => {
-  modal.classList.add("active");
-  content.classList.add("active");
-});
+let lastFocusedElement = null;
 
-// CLOSE MODAL
-closeBtn.addEventListener("click", () => {
+function openModal() {
+  lastFocusedElement = document.activeElement;
+  modal.classList.add("active");
+  // Focus first tab button
+  setTimeout(() => {
+    const firstTab = modal.querySelector(".tab");
+    if (firstTab) firstTab.focus();
+  }, 0);
+}
+
+function closeModal() {
   modal.classList.remove("active");
-});
+  if (lastFocusedElement) lastFocusedElement.focus();
+}
+
+openBtn.addEventListener("click", openModal);
+
+closeBtn.addEventListener("click", closeModal);
 
 // CLOSE ON OVERLAY CLICK
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
-    modal.classList.remove("active");
+    closeModal();
+  }
+});
+
+// KEYBOARD NAVIGATION
+document.addEventListener("keydown", (e) => {
+  if (!modal.classList.contains("active")) return;
+
+  // ESC to close modal
+  if (e.key === "Escape") {
+    closeModal();
+    e.preventDefault();
+  }
+
+  // Arrow keys to navigate tabs
+  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+    const activeTab = modal.querySelector(".tab.active");
+    const allTabs = Array.from(modal.querySelectorAll(".tab"));
+    const currentIndex = allTabs.indexOf(activeTab);
+    const nextIndex = (currentIndex + 1) % allTabs.length;
+    showTab(nextIndex);
+    allTabs[nextIndex].focus();
+    e.preventDefault();
+  }
+
+  if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+    const activeTab = modal.querySelector(".tab.active");
+    const allTabs = Array.from(modal.querySelectorAll(".tab"));
+    const currentIndex = allTabs.indexOf(activeTab);
+    const prevIndex = (currentIndex - 1 + allTabs.length) % allTabs.length;
+    showTab(prevIndex);
+    allTabs[prevIndex].focus();
+    e.preventDefault();
   }
 });
 

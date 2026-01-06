@@ -23,12 +23,8 @@
 </head>
 
 <body>
-    <h1>
-        Testing my new branch
-    </h1>
-
   <!-- RULES BUTTON -->
-  <button id="openModal" class="rules-btn">Rules</button>
+  <button id="openModal" class="rules-btn"><strong>Rules</strong></button>
 
   <!-- MODAL OVERLAY -->
   <div class="modal" id="rulesModal">
@@ -62,45 +58,74 @@
             <h2>Rules</h2>
             <p>Stormbound: A Battle of the Elements is a modern take on the traditional game 'Rock, Paper Scissors'.<br>
             You choose from the elements: <br>
-             'water'<img src="assets/images/doc-images/water.png" alt="Water">, <br>
-             'fire'<img src="assets/images/doc-images/fire.png" alt="Fire">, <br>
-             'earth'<img src="assets/images/doc-images/earth.png" alt="Earth">, <br>
-             'air'<img src="assets/images/doc-images/air.png" alt="Air">, <br>
-             and 'lightning'<img src="assets/images/doc-images/lightning.png" alt="Lightning">.<br>
+             'water'<img src="assets/images/water.png" alt="Water">, <br>
+             'fire'<img src="assets/images/fire.png" alt="Fire">, <br>
+             'earth'<img src="assets/images/earth.png" alt="Earth">, <br>
+             'air'<img src="assets/images/air.png" alt="Air">, <br>
+             and 'lightning'<img src="assets/images/lightning.png" alt="Lightning">.<br>
              Once you have chosen your element, the computer will randomly select its own element, after a count down of 3.<br> 
               </p>
           </div>
 
           
-
           <!-- ELEMENTS CONTENT -->
           <div class="content-section" id="elements">
             <div class="elements-container">
               <div class="elements-tabs">
                 <h2>Elements</h2>
                 <p>The winner is determined based on the following rules:</p>
-                <button class="sub-header" data-element="water">Water<img src="assets/images/doc-images/water.png" alt="Water"></button>
-                <button class="sub-header" data-element="fire">Fire<img src="assets/images/doc-images/fire.png" alt="Fire"></button>
-                <button class="sub-header" data-element="earth">Earth<img src="assets/images/doc-images/earth.png" alt="Earth"></button>
-                <button class="sub-header" data-element="air">Air<img src="assets/images/doc-images/air.png" alt="Air"></button>
-                <button class="sub-header" data-element="lightning">Lightning<img src="assets/images/doc-images/lightning.png" alt="Lightning"></button>
+                <button class="sub-header" type="button" data-element="water" aria-expanded="true">Water<img src="assets/images/water.png" alt="Water"></button>
+                <button class="sub-header" type="button" data-element="fire" aria-expanded="false">Fire<img src="assets/images/fire.png" alt="Fire"></button>
+                <button class="sub-header" type="button" data-element="earth" aria-expanded="false">Earth<img src="assets/images/earth.png" alt="Earth"></button>
+                <button class="sub-header" type="button" data-element="air" aria-expanded="false">Air<img src="assets/images/air.png" alt="Air"></button>
+                <button class="sub-header" type="button" data-element="lightning" aria-expanded="false">Lightning<img src="assets/images/lightning.png" alt="Lightning"></button>
               </div>
               <div class="elements-content">
                 <div class="element-item active" id="water">
-                  
-                  <p>Each win gives 10 points.</p>
+                  <p><strong>BEATS</strong><img src="assets/images/fire.png" alt="Fire"><img src="assets/images/lightning.png" alt="Lightning"><br>
+                    Fire: extingushes Water, <br>
+                    Lightning: is grounded by Water,<br>
+                    <br>
+                    <strong>Loses to:</strong><img src="assets/images/air.png" alt="Air"><img src="assets/images/earth.png" alt="Earth"><br>
+                    Air: disperses Water, <br>
+                     Earth: blocks and absorbs Water</p>
                 </div>
                 <div class="element-item" id="fire">
-                  <p>Rule violations deduct points.</p>
+                  <p><strong>BEATS</strong><img src="assets/images/air.png" alt="Air"><img src="assets/images/earth.png" alt="Earth"><br>
+                    Air: is consumed by Fire, <br>
+                    Earth: is melted by Fire, <br>
+                    <br>
+                    <strong>Loses to:</strong><img src="assets/images/water.png" alt="Water"><img src="assets/images/lightning.png" alt="Lightning"><br>
+                     Water — extinguishes Fire<br>
+                     Lightning — overwhelms Fire
+                  </p>
                 </div>
                 <div class="element-item" id="earth">
-                  <p>Rule violations deduct points.</p>
+                  <p><strong>BEATS</strong><img src="assets/images/lightning.png" alt="Lightning"><img src="assets/images/water.png" alt="Water"><br>                 
+                    Lightning: is absorbed by Earth, <br>
+                    Water: is blocked by Earth, <br>
+                    <br>
+                     <strong>Loses to:</strong><img src="assets/images/air.png" alt="Air"><img src="assets/images/fire.png" alt="Fire"><br>
+                     Air: erodes Earth, <br>
+                     Fire: melts Earth</p>
                 </div>
                 <div class="element-item" id="air">
-                  <p>Rule violations deduct points.</p>
+                  <p><strong>BEATS </strong><img src="assets/images/earth.png" alt="Earth"><img src="assets/images/water.png" alt="Water"><br>
+                     Earth:is erodded by Air, <br>
+                      Water: is disperesed by Air, <br>
+                      <br>
+                      <strong>Loses to:</strong><img src="assets/images/fire.png" alt="Fire"><img src="assets/images/lightning.png" alt="Lightning"><br>
+                        Fire: consumes air <br>
+                      Lightning: cuts through Air.</p>
                 </div>
                 <div class="element-item" id="lightning">
-                  <p>Rule violations deduct points.</p>
+                  <p><strong>BEATS</strong><img src="assets/images/water.png" alt="Water"><img src="assets/images/air.png" alt="Air"><br>
+                    Water: Lightning overloads Water<br>
+                     Air: Lightning cuts through Air <br>
+                    <br>
+                     <strong>Loses to:</strong><img src="assets/images/earth.png" alt="Earth"><img src="assets/images/fire.png" alt="Fire"><br>
+                     Earth: absorbs Lightning,<br>
+                     Fire: destabilises Lightning.</p>
                 </div>
               </div>
             </div>
@@ -162,11 +187,6 @@
 
     <div id="element-tooltip" class="element-tooltip" role="status" aria-live="polite" hidden></div>
 
-    <main class="page-content">
-        <h1>
-            Testing my new branch
-        </h1>
-    </main>
     <!-- link to JavaScript -->
      <script src="assets/js/script.js"></script>
 </body>
