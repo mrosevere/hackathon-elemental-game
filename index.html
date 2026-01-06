@@ -15,7 +15,95 @@
     <h1>
         Testing my new branch
     </h1>
+
+  <!-- RULES BUTTON -->
+  <button id="openModal" class="rules-btn">Rules</button>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal" id="rulesModal">
+    <div class="modal-content">
+
+      <!-- CLOSE BUTTON -->
+      <button class="close-btn" id="closeModal">&times;</button>
+
+      <!-- ACCORDION -->
+      <div class="accordion">
+        
+        <!-- LEFT TABS -->
+        <div class="accordion-tabs">
+          <button class="tab active" data-content="rules">
+            Rules
+          </button>
+          <button class="tab" data-content="scoring">
+            Scoring and Progress
+          </button>
+          <button class="tab" data-content="elements">
+            Elements
+          </button>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="accordion-content active" id="content">
+          
+          <!-- RULES CONTENT -->
+          <div class="content-section active" id="rules">
+            <h2>Rules</h2>
+            <p>Stormbound: A Battle of the Elements is a modern take on the traditional game 'Rock, Paper Scissors'.</p>
+          </div>
+
+          <!-- SCORING AND PROGRESS CONTENT -->
+          <div class="content-section" id="scoring">
+            <h2>Scoring and Progress</h2>
+            <p>Players take turns clockwise.</p>
+          </div>
+
+          <!-- ELEMENTS CONTENT -->
+          <div class="content-section" id="elements">
+            <div class="elements-container">
+              <div class="elements-tabs">
+                <h2>Elements</h2>
+                <button class="sub-header" data-element="water">Water</button>
+                <button class="sub-header" data-element="fire">Fire</button>
+                <button class="sub-header" data-element="earth">Earth</button>
+                <button class="sub-header" data-element="air">Air</button>
+                <button class="sub-header" data-element="lightning">Lightning</button>
+              </div>
+              <div class="elements-content">
+                <div class="element-item active" id="water">
+                  <p>Each win gives 10 points.</p>
+                </div>
+                <div class="element-item" id="fire">
+                  <p>Rule violations deduct points.</p>
+                </div>
+                <div class="element-item" id="earth">
+                  <p>Rule violations deduct points.</p>
+                </div>
+                <div class="element-item" id="air">
+                  <p>Rule violations deduct points.</p>
+                </div>
+                <div class="element-item" id="lightning">
+                  <p>Rule violations deduct points.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
     <!-- link to JavaScript -->
      <script src="assets/js/script.js"></script>
+</body>
+</html>
+
+
+
+
+  
+
+  <script src="script.js"></script>
 </body>
 </html>
