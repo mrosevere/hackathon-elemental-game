@@ -1,0 +1,168 @@
+/* --------- BASIC LAYOUT --------- */
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Reset body margin */
+body {
+    margin: 0;
+    background-color: var(--page-bg);
+    color: var(--page-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header */
+.site-header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Main area fills space */
+.site-main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* --------- FOOTER LAYOUT --------- */
+
+.site-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* reduced height */
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    border-top: 2px solid var(--footer-text);
+    box-sizing: border-box;
+}
+
+/* LEFT */
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background-color: #ddd; /* fallback placeholder */
+    border-radius: 5px;
+}
+
+/* CENTER */
+.footer-center {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dev-title {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.credits {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* RIGHT */
+.footer-right {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-right a {
+    color: var(--footer-text);
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+}
+
+.footer-right a:hover {
+    opacity: 0.6;
+}
+
+/* --------- RESPONSIVE FOOTER --------- */
+
+@media (max-width: 600px) {
+    .site-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-left,
+    .footer-right {
+        justify-content: center;
+    }
+}
+
+/* --------- TOGGLE SWITCH --------- */
+
+.toggle-switch {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    width: 60px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    z-index: 999;
+}
+
+.toggle-circle {
+    width: 24px;
+    height: 24px;
+    background-color: #000000;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* --------- THEME COLORS --------- */
+
+/* Light mode */
+:root {
+    --footer-bg: #f2f2f2;
+    --footer-text: #000000;
+    --page-bg: #ffffff;
+    --page-text: #000000;
+}
+
+/* Dark mode */
+body.dark-mode {
+    --footer-bg: #1a1a1a;
+    --footer-text: #ffffff;
+    --page-bg: #000000;
+    --page-text: #ffffff;
+}
+
+/* Toggle appearance in dark mode */
+body.dark-mode .toggle-switch {
+    background-color: #00c853;
+    border-color: #00a844;
+}
+
+body.dark-mode .toggle-circle {
+    transform: translateX(30px);
+    background-color: #ffffff;
+}
