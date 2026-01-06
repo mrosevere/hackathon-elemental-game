@@ -184,8 +184,8 @@ body {
 }
 
 .element-item img {
-  width: 1em;
-  height: 1em;
+  height: 5rem;
+  width: auto;
   margin-bottom: 20px;
   object-fit: contain;
   display: inline-block;
@@ -207,7 +207,7 @@ body {
 /* INLINE IMAGES IN PARAGRAPHS */
 p img {
   display: inline;
-  height: 2.5em;
+  height: 2.5rem;
   width: auto;
   vertical-align: middle;
   margin: 0 4px;
@@ -216,10 +216,19 @@ p img {
 /* INLINE IMAGES IN BUTTONS */
 button img {
   display: inline;
-  height: 2.5em;
+  height: 2.5rem;
   width: auto;
   vertical-align: middle;
   margin: 0 4px;
+}
+
+/* Default image sizing for inline assets */
+img {
+	display: inline;
+	height: 2.5rem;
+	width: auto;
+	vertical-align: middle;
+	margin: 0 4px;
 }
 
 :root {
@@ -256,8 +265,9 @@ body {
 
 .element-icon {
 	position: absolute;
-	width: 140px;
-	height: 140px;
+  width: 140px;
+  height: 140px;
+  margin: 0;
 	object-fit: contain;
 	cursor: help;
 	pointer-events: auto;
