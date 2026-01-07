@@ -217,6 +217,34 @@ body.light-mode .rules-btn:hover {
     margin: 0 0 6px;
 }
 
+.arena-header {
+    position: relative;
+}
+
+.reset-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 75, 110, 0.15);
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background var(--transition-med), box-shadow var(--transition-med);
+}
+
+.reset-btn:hover {
+    background: rgba(255, 75, 110, 0.25);
+    box-shadow: 0 0 12px rgba(255, 75, 110, 0.4);
+}
+
+.reset-btn:active {
+    transform: scale(0.95);
+}
+
 .arena-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));

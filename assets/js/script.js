@@ -277,6 +277,17 @@ function updateScore(result) {
 	if (computerScoreEl) computerScoreEl.textContent = computerScore;
 }
 
+function resetScores() {
+	playerScore = 0;
+	computerScore = 0;
+	const scoreEl = document.getElementById("scoreValue");
+	if (scoreEl) scoreEl.textContent = playerScore;
+	const computerScoreEl = document.getElementById("computerScoreValue");
+	if (computerScoreEl) computerScoreEl.textContent = computerScore;
+	const statusEl = document.getElementById("arenaStatus");
+	if (statusEl) statusEl.textContent = "Scores reset. Ready for a new game!";
+}
+
 /* =========================================================
    ARENA INITIALIZATION WITH LOCAL OVERLAY
 ========================================================= */
@@ -332,4 +343,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			updateScore(outcome);
 		});
 	});
+
+	// Reset button functionality
+	const resetBtn = document.getElementById("resetButton");
+	if (resetBtn) {
+		resetBtn.addEventListener("click", resetScores);
+	}
 });
