@@ -212,10 +212,6 @@ body.light-mode .rules-btn:hover {
     position: relative;
 }
 
-.game-arena.active {
-    display: block;
-}
-
 .arena-header h3 {
     margin: 0 0 6px;
 }
