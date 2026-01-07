@@ -881,26 +881,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
-	// Add delegated handlers on the container to ensure clicks/keys are handled
-	const modeToggleContainer = document.querySelector('.mode-toggle');
-	if (modeToggleContainer) {
-		modeToggleContainer.addEventListener('click', (e) => {
-			const btn = e.target.closest && e.target.closest('.mode-btn');
-			if (!btn) return;
-			clearChoiceEffects();
-			setMode(btn.dataset.mode);
-		});
-
-		modeToggleContainer.addEventListener('keydown', (e) => {
-			if (e.key !== 'Enter' && e.key !== ' ') return;
-			const btn = e.target.closest && e.target.closest('.mode-btn');
-			if (!btn) return;
-			e.preventDefault();
-			clearChoiceEffects();
-			setMode(btn.dataset.mode);
-		});
-	}
-
 	// Element choice interactions using existing game logic.
 	function clearChoiceEffects() {
 		for (const choiceBtn of choices) {
