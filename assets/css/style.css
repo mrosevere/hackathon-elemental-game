@@ -224,6 +224,17 @@ body.light-mode .rules-btn:hover {
     transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
 }
 
+@media (max-width: 900px) {
+    .arena-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .arena-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 .arena-choice {
     display: flex;
     align-items: center;
