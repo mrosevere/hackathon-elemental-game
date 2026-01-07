@@ -296,10 +296,88 @@ document.addEventListener("DOMContentLoaded", () => {
 	const overlay = document.getElementById("arenaOverlay");
 	const playBtn = document.getElementById("playButton");
 	const statusEl = document.getElementById("arenaStatus");
+	const playerPickEl = document.getElementById("playerPick");
+	const cpuPickEl = document.getElementById("cpuPick");
+	const playerPickIcon = document.getElementById("playerPickIcon");
+	const cpuPickIcon = document.getElementById("cpuPickIcon");
+	const playerPickText = document.getElementById("playerPickText");
+	const cpuPickText = document.getElementById("cpuPickText");
+	const playerSymbolEl = document.getElementById("playerSymbol");
+	const cpuSymbolEl = document.getElementById("cpuSymbol");
+	const playerSymbolIcon = document.getElementById("playerSymbolIcon");
+	const cpuSymbolIcon = document.getElementById("cpuSymbolIcon");
 
 	if (!arena) return;
 
 	const choices = Array.from(arena.querySelectorAll(".arena-choice"));
+	const name = (k) => ELEMENT_DISPLAY_NAMES[k] || k;
+
+	function clearPickDisplay() {
+		if (playerPickEl) {
+			playerPickEl.removeAttribute("data-choice");
+			playerPickEl.classList.remove("result-win", "result-lose", "result-tie");
+		}
+		if (cpuPickEl) {
+			cpuPickEl.removeAttribute("data-choice");
+			cpuPickEl.classList.remove("result-win", "result-lose", "result-tie");
+		}
+		if (playerSymbolEl) {
+			playerSymbolEl.removeAttribute("data-choice");
+			playerSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+		}
+		if (cpuSymbolEl) {
+			cpuSymbolEl.removeAttribute("data-choice");
+			cpuSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+		}
+		if (playerPickText) playerPickText.textContent = "—";
+		if (cpuPickText) cpuPickText.textContent = "—";
+		if (playerPickIcon) {
+			playerPickIcon.hidden = true;
+			playerPickIcon.setAttribute("src", "");
+			playerPickIcon.setAttribute("alt", "");
+		}
+		if (cpuPickIcon) {
+			cpuPickIcon.hidden = true;
+			cpuPickIcon.setAttribute("src", "");
+			cpuPickIcon.setAttribute("alt", "");
+		}
+		if (playerSymbolIcon) {
+			playerSymbolIcon.hidden = true;
+			playerSymbolIcon.setAttribute("src", "");
+			playerSymbolIcon.setAttribute("alt", "");
+		}
+		if (cpuSymbolIcon) {
+			cpuSymbolIcon.hidden = true;
+			cpuSymbolIcon.setAttribute("src", "");
+			cpuSymbolIcon.setAttribute("alt", "");
+		}
+	}
+
+	function updatePickDisplay(side, choiceKey) {
+		const pickEl = side === "player" ? playerPickEl : cpuPickEl;
+		const iconEl = side === "player" ? playerPickIcon : cpuPickIcon;
+		const textEl = side === "player" ? playerPickText : cpuPickText;
+
+		if (pickEl) pickEl.dataset.choice = choiceKey;
+		if (textEl) textEl.textContent = name(choiceKey);
+
+		if (iconEl) {
+			iconEl.hidden = false;
+			iconEl.src = `assets/images/${choiceKey}.png`;
+			iconEl.alt = name(choiceKey);
+		}
+	}
+
+	function updateSymbolDisplay(side, choiceKey) {
+		const symbolEl = side === "player" ? playerSymbolEl : cpuSymbolEl;
+		const iconEl = side === "player" ? playerSymbolIcon : cpuSymbolIcon;
+		if (symbolEl) symbolEl.dataset.choice = choiceKey;
+		if (iconEl) {
+			iconEl.hidden = false;
+			iconEl.src = `assets/images/${choiceKey}.png`;
+			iconEl.alt = name(choiceKey);
+		}
+	}
 
 	function setArenaEnabled(enabled) {
 		choices.forEach((btn) => (btn.disabled = !enabled));
@@ -308,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (statusEl) statusEl.textContent = enabled
 			? "Arena ready. Choose your element."
 			: "Press Play to start the battle.";
+		if (!enabled) clearPickDisplay();
 	}
 
 	// Initially disabled until Play is clicked.
@@ -333,13 +412,76 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// Element choice interactions using existing game logic.
+	function clearChoiceEffects() {
+		for (const choiceBtn of choices) {
+			choiceBtn.classList.remove(
+				"is-player",
+				"is-opponent",
+				"result-win",
+				"result-lose",
+				"result-tie"
+			);
+		}
+		if (playerPickEl) playerPickEl.classList.remove("result-win", "result-lose", "result-tie");
+		if (cpuPickEl) cpuPickEl.classList.remove("result-win", "result-lose", "result-tie");
+		if (playerSymbolEl) playerSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+		if (cpuSymbolEl) cpuSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+	}
+
+	function restartResultAnimation(el, className) {
+		if (!el) return;
+		el.classList.remove("result-win", "result-lose", "result-tie");
+		// Force reflow so the animation reliably re-triggers.
+		void el.offsetWidth;
+		el.classList.add(className);
+	}
+
+	function findChoiceButton(choiceKey) {
+		return choices.find((b) => b.dataset.choice === choiceKey) ?? null;
+	}
+
 	choices.forEach((btn) => {
 		btn.addEventListener("click", () => {
 			const player = btn.dataset.choice;
-			const opponent = getComputerChoice().toLowerCase();
+			const opponent = getComputerChoice();
 			const outcome = determineWinner(player, opponent);
-			const name = (k) => ELEMENT_DISPLAY_NAMES[k] || k;
-			if (statusEl) statusEl.textContent = `You chose ${name(player)}. Computer chose ${name(opponent)}. Result: ${outcome.toUpperCase()}.`;
+
+			clearChoiceEffects();
+			const opponentBtn = findChoiceButton(opponent);
+
+			btn.classList.add("is-player");
+			if (opponentBtn) opponentBtn.classList.add("is-opponent");
+			updatePickDisplay("player", player);
+			updatePickDisplay("cpu", opponent);
+			updateSymbolDisplay("player", player);
+			updateSymbolDisplay("cpu", opponent);
+
+			if (outcome === "tie") {
+				restartResultAnimation(btn, "result-tie");
+				restartResultAnimation(opponentBtn, "result-tie");
+				restartResultAnimation(playerPickEl, "result-tie");
+				restartResultAnimation(cpuPickEl, "result-tie");
+				restartResultAnimation(playerSymbolEl, "result-tie");
+				restartResultAnimation(cpuSymbolEl, "result-tie");
+			} else if (outcome === "win") {
+				restartResultAnimation(btn, "result-win");
+				restartResultAnimation(opponentBtn, "result-lose");
+				restartResultAnimation(playerPickEl, "result-win");
+				restartResultAnimation(cpuPickEl, "result-lose");
+				restartResultAnimation(playerSymbolEl, "result-win");
+				restartResultAnimation(cpuSymbolEl, "result-lose");
+			} else {
+				restartResultAnimation(btn, "result-lose");
+				restartResultAnimation(opponentBtn, "result-win");
+				restartResultAnimation(playerPickEl, "result-lose");
+				restartResultAnimation(cpuPickEl, "result-win");
+				restartResultAnimation(playerSymbolEl, "result-lose");
+				restartResultAnimation(cpuSymbolEl, "result-win");
+			}
+
+			if (statusEl) {
+				statusEl.textContent = `You chose ${name(player)}. Computer chose ${name(opponent)}. Result: ${outcome.toUpperCase()}.`;
+			}
 			updateScore(outcome);
 		});
 	});
