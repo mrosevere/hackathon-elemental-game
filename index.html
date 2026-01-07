@@ -16,6 +16,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Nunito+Sans:wght@200;400;600;800&display=swap');
+    </style>
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -27,6 +31,9 @@
 <div id="themeToggle" class="toggle-switch" role="button" tabindex="0">
     <div class="toggle-circle"></div>
 </div>
+
+<!-- Rules Button -->
+<button id="openModal" class="rules-btn"><strong>Rules</strong></button>
 
 <header class="site-header">
     <h1>Stormbound</h1>
@@ -57,12 +64,12 @@
                         <h2>Rules</h2>
                         <p>
                             Stormbound: A Battle of the Elements is a modern take on Rock, Paper, Scissors.<br>
-                            Choose from:<br>
-                            Water <img src="assets/images/water.png" alt="Water"><br>
-                            Fire <img src="assets/images/fire.png" alt="Fire"><br>
-                            Earth <img src="assets/images/earth.png" alt="Earth"><br>
-                            Air <img src="assets/images/air.png" alt="Air"><br>
-                            Lightning <img src="assets/images/lightning.png" alt="Lightning"><br>
+                            Choose from:
+                            Water <img src="assets/images/water.png" alt="Water">,
+                            Fire <img src="assets/images/fire.png" alt="Fire">,
+                            Earth <img src="assets/images/earth.png" alt="Earth">,
+                            Air <img src="assets/images/air.png" alt="Air">,
+                            Lightning <img src="assets/images/lightning.png" alt="Lightning">.<br>
                             After your choice, the computer selects its element after a countdown.
                         </p>
                     </div>
@@ -83,98 +90,28 @@
 
                             <div class="elements-content">
                                 <div class="element-item active" id="water">
-                                    <table>
-                                        <tr>
-                                            <th>BEATS</th>
-                                            <td>
-                                                Fire <img src="assets/images/fire.png" alt="Fire"><br>
-                                                Lightning <img src="assets/images/lightning.png" alt="Lightning">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>LOSES TO</th>
-                                            <td>
-                                                Air <img src="assets/images/air.png" alt="Air"><br>
-                                                Earth <img src="assets/images/earth.png" alt="Earth">
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p><strong>BEATS</strong> Fire, Lightning<br>
+                                    <strong>LOSES TO</strong> Air, Earth</p>
                                 </div>
 
                                 <div class="element-item" id="fire">
-                                    <table>
-                                        <tr>
-                                            <th>BEATS</th>
-                                            <td>
-                                                Air <img src="assets/images/air.png" alt="Air"><br>
-                                                Earth <img src="assets/images/earth.png" alt="Earth">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>LOSES TO</th>
-                                            <td>
-                                                Water <img src="assets/images/water.png" alt="Water"><br>
-                                                Lightning <img src="assets/images/lightning.png" alt="Lightning">
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p><strong>BEATS</strong> Air, Earth<br>
+                                    <strong>LOSES TO</strong> Water, Lightning</p>
                                 </div>
 
                                 <div class="element-item" id="earth">
-                                    <table>
-                                        <tr>
-                                            <th>BEATS</th>
-                                            <td>
-                                                Lightning <img src="assets/images/lightning.png" alt="Lightning"><br>
-                                                Water <img src="assets/images/water.png" alt="Water">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>LOSES TO</th>
-                                            <td>
-                                                Air <img src="assets/images/air.png" alt="Air"><br>
-                                                Fire <img src="assets/images/fire.png" alt="Fire">
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p><strong>BEATS</strong> Lightning, Water<br>
+                                    <strong>LOSES TO</strong> Air, Fire</p>
                                 </div>
 
                                 <div class="element-item" id="air">
-                                    <table>
-                                        <tr>
-                                            <th>BEATS</th>
-                                            <td>
-                                                Earth <img src="assets/images/earth.png" alt="Earth"><br>
-                                                Water <img src="assets/images/water.png" alt="Water">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>LOSES TO</th>
-                                            <td>
-                                                Fire <img src="assets/images/fire.png" alt="Fire"><br>
-                                                Lightning <img src="assets/images/lightning.png" alt="Lightning">
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p><strong>BEATS</strong> Earth, Water<br>
+                                    <strong>LOSES TO</strong> Fire, Lightning</p>
                                 </div>
 
                                 <div class="element-item" id="lightning">
-                                    <table>
-                                        <tr>
-                                            <th>BEATS</th>
-                                            <td>
-                                                Water <img src="assets/images/water.png" alt="Water"><br>
-                                                Air <img src="assets/images/air.png" alt="Air">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>LOSES TO</th>
-                                            <td>
-                                                Earth <img src="assets/images/earth.png" alt="Earth"><br>
-                                                Fire <img src="assets/images/fire.png" alt="Fire">
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <p><strong>BEATS</strong> Water, Air<br>
+                                    <strong>LOSES TO</strong> Earth, Fire</p>
                                 </div>
                             </div>
                         </div>
@@ -184,27 +121,14 @@
                         <h2>Scoring and Progress</h2>
                         <p>
                             Earn points by beating the computer.<br>
-                            A draw earns no points.<br>
-                            🥉 First Victory – Win any match
-                            🥈 Best of 3 Champion – Win a Best of 3 Round
-                            🥇 Best of 5 Champion – Win a Best of 5 Round
-                            👑 Endurance Master – Win a Best of 9 Round
-                            Hint: To win a round, win the majority of matches played!
-                            Good Luck!
-                              </p>
+                            Reach 5 wins → Trophy 1<br>
+                            Reach 10 wins → Trophy 2<br>
+                            Try Hard Mode for a challenge.
+                        </p>
                     </div>
 
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- RESULT MODAL -->
-    <div class="modal" id="resultModal">
-        <div class="modal-content result-modal-content">
-            <h2 id="resultMessage" class="result-message"></h2>
-            <p id="resultSubtext" class="result-subtext"></p>
-            <button class="result-btn" id="closeResultModal">Continue</button>
         </div>
     </div>
 
@@ -220,102 +144,6 @@
     <div id="element-tooltip" class="element-tooltip" role="status" aria-live="polite" hidden></div>
 
 </main>
-
-<!-- Rules Button (positioned below tooltip, above game arena) -->
-<button id="openModal" class="rules-btn"><strong>Rules</strong></button>
-
-<!-- GAME ARENA (below rules button, above footer) -->
-<section id="game-arena" class="game-arena">
-    <div class="arena-header">
-        <h3>Stormbound</h3>
-            <div class="mode-toggle" role="group" aria-label="Select game mode">
-                <button class="mode-btn is-active" data-mode="continuous" aria-pressed="true">Continuous</button>
-                <button class="mode-btn" data-mode="bo3" aria-pressed="false">Best of 3</button>
-                <button class="mode-btn" data-mode="bo5" aria-pressed="false">Best of 5</button>
-                <button class="mode-btn" data-mode="bo9" aria-pressed="false">Best of 9</button>
-            </div>
-            <p id="modeHint" class="mode-hint">Continuous play: keep earning points every round.</p>
-        <p>Select an element to challenge the computer.</p>
-    </div>
-    <!-- Local arena overlay with Play button -->
-    <div id="arenaOverlay" class="arena-overlay" aria-label="Activate Game">
-        <div class="overlay-inner">
-            <h4>Ready to Play?</h4>
-            <button id="playButton" class="play-btn" aria-controls="game-arena">Play</button>
-        </div>
-    </div>
-    <div class="arena-grid">
-        <button class="arena-choice" data-choice="water"><img src="assets/images/water.png" alt="" aria-hidden="true"> Water</button>
-        <button class="arena-choice" data-choice="fire"><img src="assets/images/fire.png" alt="" aria-hidden="true"> Fire</button>
-        <button class="arena-choice" data-choice="earth"><img src="assets/images/earth.png" alt="" aria-hidden="true"> Earth</button>
-        <button class="arena-choice" data-choice="air"><img src="assets/images/air.png" alt="" aria-hidden="true"> Air</button>
-        <button class="arena-choice" data-choice="lightning"><img src="assets/images/lightning.png" alt="" aria-hidden="true"> Lightning</button>
-    </div>
-
-    <div class="arena-picks" aria-label="Round selections">
-        <div class="arena-pick arena-pick--player" id="playerPick" aria-live="polite">
-            <div class="arena-pick__label">You</div>
-            <div class="arena-pick__value">
-                <img id="playerPickIcon" class="arena-pick__icon" src="" alt="" hidden>
-                <span id="playerPickText">—</span>
-            </div>
-        </div>
-
-        <div class="arena-pick arena-pick--cpu" id="cpuPick" aria-live="polite">
-            <div class="arena-pick__label">Computer</div>
-            <div class="arena-pick__value">
-                <img id="cpuPickIcon" class="arena-pick__icon" src="" alt="" hidden>
-                <span id="cpuPickText">—</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="arena-symbols" aria-label="Chosen symbols">
-        <div class="arena-symbol arena-symbol--player" id="playerSymbol" aria-live="polite">
-            <img id="playerSymbolIcon" class="arena-symbol__icon" src="" alt="" hidden>
-        </div>
-        <div class="arena-symbol arena-symbol--cpu" id="cpuSymbol" aria-live="polite">
-            <img id="cpuSymbolIcon" class="arena-symbol__icon" src="" alt="" hidden>
-        </div>
-    </div>
-    <div class="arena-status" id="arenaStatus" aria-live="polite"></div>
-    <div class="score-box" id="scoreBox">
-        <p class="score-label">Player Score</p>
-        <p class="score-value">Score <span id="scoreValue">0</span></p>
-    </div>
-    <div class="score-box score-box-opponent" id="computerScoreBox">
-        <p class="score-label">Computer Score</p>
-        <p class="score-value">Score <span id="computerScoreValue">0</span></p>
-    </div>
-    <div class="round-counter" aria-live="polite">
-        <p class="round-label">Round</p>
-        <p class="round-display"><span id="roundValue">0</span></p>
-    </div>
-    <button id="resetButton" class="reset-btn">Reset Game</button>
-</section>
-
-<!-- ACHIEVEMENT BADGES -->
-<section class="achievements-section">
-    <h3 class="achievements-title">Achievements</h3>
-    <div class="achievements-grid">
-        <div class="achievement-badge" data-achievement="first-win" title="First Victory – Win any match">
-            <div class="badge-icon">🥉</div>
-            <div class="badge-label">First Victory</div>
-        </div>
-        <div class="achievement-badge" data-achievement="bo3" title="Best of 3 Champion – Win a Best of 3 Series">
-            <div class="badge-icon">🥈</div>
-            <div class="badge-label">Best of 3 Champion</div>
-        </div>
-        <div class="achievement-badge" data-achievement="bo5" title="Best of 5 Champion – Win a Best of 5 Series">
-            <div class="badge-icon">🥇</div>
-            <div class="badge-label">Best of 5 Champion</div>
-        </div>
-        <div class="achievement-badge" data-achievement="bo9" title="Best of 9 Champion – Win a Best of 9 Series">
-            <div class="badge-icon">👑</div>
-            <div class="badge-label">Endurance Master</div>
-        </div>
-    </div>
-</section>
 
 <footer class="site-footer">
     <div class="footer-left">
