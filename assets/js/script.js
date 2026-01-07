@@ -130,16 +130,16 @@ function normalizeElementChoice(choice) {
 
 // Random selector for the Computer's turn
 function getComputerChoice() {
-    const choices = ['Fire', 'Earth', 'Water', 'Air', 'Lightning'];
-    
-    // Generate a random index between 0 and 4
-    const randomIndex = Math.floor(Math.random() * choices.length);
+	const choices = ['Fire', 'Earth', 'Water', 'Air', 'Lightning'];
+	
+	// Generate a random index for the choices array
+	const randomIndex = Math.floor(Math.random() * choices.length);
 
 	// Get the randomly selected choice
-    const selectedChoice = choices[randomIndex];
-    
-    // Normalize and return the choice
-    return normalizeElementChoice(selectedChoice);
+	const selectedChoice = choices[randomIndex];
+	
+	// Normalize and return the choice
+	return normalizeElementChoice(selectedChoice);
 }
 
 function determineWinner(playerChoice, opponentChoice) {
