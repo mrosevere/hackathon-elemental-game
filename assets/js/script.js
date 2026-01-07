@@ -506,7 +506,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	modeButtons.forEach((btn) => {
-		btn.addEventListener("click", () => setMode(btn.dataset.mode, { preserveActive: true }));
+		btn.addEventListener("click", () => {
+			// When switching modes, clear any existing choice/result visuals
+			// and reset the series, requiring Play to be clicked again.
+			clearChoiceEffects();
+			setMode(btn.dataset.mode, { preserveActive: false });
+		});
 	});
 
 	setMode(gameMode, { preserveActive: false });
