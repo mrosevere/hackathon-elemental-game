@@ -527,6 +527,36 @@ body.light-mode .mode-btn.is-active {
     text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
 }
 
+.round-counter {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 8px 16px;
+    backdrop-filter: var(--glass-blur);
+    text-align: center;
+}
+
+.round-label {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.round-display {
+    margin: 2px 0 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
 .reset-btn {
     position: absolute;
     bottom: 18px;

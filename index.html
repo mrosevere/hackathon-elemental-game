@@ -281,13 +281,15 @@
     <div class="arena-status" id="arenaStatus" aria-live="polite"></div>
     <div class="score-box" id="scoreBox">
         <p class="score-label">Player Score</p>
-        <p class="round-value">Round <span id="playerRoundValue">0</span></p>
         <p class="score-value">Score <span id="scoreValue">0</span></p>
     </div>
     <div class="score-box score-box-opponent" id="computerScoreBox">
         <p class="score-label">Computer Score</p>
-        <p class="round-value">Round <span id="computerRoundValue">0</span></p>
         <p class="score-value">Score <span id="computerScoreValue">0</span></p>
+    </div>
+    <div class="round-counter" aria-live="polite">
+        <p class="round-label">Round</p>
+        <p class="round-display"><span id="roundValue">0</span></p>
     </div>
     <button id="resetButton" class="reset-btn">Reset Game</button>
 </section>
