@@ -1,3 +1,17 @@
+/* Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+/* Variables */
+:root {
+  --primary-color: #dd00ff;
+  --secondary-color: #20e70a;
+  --background-color: #f5f5f5;
+  --modal-background: rgba(0, 0, 0, 0.6);
+  --primary-font: 'Nunito Sans', sans-serif;
+  --heading-font: 'Concert One', cursive;
+  --accent-font: 'Arial Black', sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
