@@ -223,10 +223,20 @@ window.determineWinner = determineWinner;
 				if (loseIcon) loseIcon.classList.add("relation-loses");
 			}
 
+
 			tooltipEl.textContent =
 				`${displayNames[key] ?? key}\n` +
 				`Beats: ${formatList(rel.beats)}\n` +
 				`Loses to: ${formatList(rel.losesTo)}`;
+
+			if (selfIcon) {
+				const rect = selfIcon.getBoundingClientRect();
+				const top = rect.bottom + 8; // position just under the icon
+				const left = rect.left + rect.width / 2;
+				tooltipEl.style.left = `${left}px`;
+				tooltipEl.style.top = `${top}px`;
+			}
+
 			tooltipEl.hidden = false;
 		}
 
