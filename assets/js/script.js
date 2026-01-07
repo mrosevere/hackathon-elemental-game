@@ -106,85 +106,129 @@ elementButtons.forEach((btn) => {
     });
 });
 
-/* =========================================================
-   ELEMENT RELATIONSHIPS DIAGRAM + TOOLTIP POSITIONING
-========================================================= */
+const ELEMENT_RELATIONSHIPS = {
+	lightning: { beats: ["water", "air"], losesTo: ["earth", "fire"] },
+	fire: { beats: ["air", "earth"], losesTo: ["water", "lightning"] },
+	air: { beats: ["earth", "water"], losesTo: ["fire", "lightning"] },
+	earth: { beats: ["lightning", "water"], losesTo: ["air", "fire"] },
+	water: { beats: ["fire", "lightning"], losesTo: ["air", "earth"] },
+};
+
+const ELEMENT_DISPLAY_NAMES = {
+	lightning: "Lightning",
+	fire: "Fire",
+	air: "Air",
+	earth: "Earth",
+	water: "Water",
+};
+
+function normalizeElementChoice(choice) {
+	if (typeof choice !== "string") return "";
+	return choice.trim().toLowerCase();
+}
+
+function determineWinner(playerChoice, opponentChoice) {
+	const player = normalizeElementChoice(playerChoice);
+	const opponent = normalizeElementChoice(opponentChoice);
+
+	if (!(player in ELEMENT_RELATIONSHIPS)) {
+		throw new TypeError(
+			`Invalid playerChoice: ${String(playerChoice)}. Valid choices: ${Object.keys(ELEMENT_RELATIONSHIPS).join(", ")}`
+		);
+	}
+	if (!(opponent in ELEMENT_RELATIONSHIPS)) {
+		throw new TypeError(
+			`Invalid opponentChoice: ${String(opponentChoice)}. Valid choices: ${Object.keys(ELEMENT_RELATIONSHIPS).join(", ")}`
+		);
+	}
+
+	if (player === opponent) return "tie";
+	if (ELEMENT_RELATIONSHIPS[player].beats.includes(opponent)) return "win";
+	return "lose";
+}
+
+// Optional: make the function callable from HTML inline handlers / other scripts.
+window.determineWinner = determineWinner;
+
 (() => {
-    const relationships = {
-        lightning: { beats: ["water", "air"], losesTo: ["earth", "fire"] },
-        fire:      { beats: ["air", "earth"], losesTo: ["water", "lightning"] },
-        air:       { beats: ["earth", "water"], losesTo: ["fire", "lightning"] },
-        earth:     { beats: ["lightning", "water"], losesTo: ["air", "fire"] },
-        water:     { beats: ["fire", "lightning"], losesTo: ["air", "earth"] },
-    };
+	const relationships = ELEMENT_RELATIONSHIPS;
+	const displayNames = ELEMENT_DISPLAY_NAMES;
 
-    const displayNames = {
-        lightning: "Lightning",
-        fire: "Fire",
-        air: "Air",
-        earth: "Earth",
-        water: "Water",
-    };
+	function formatList(keys) {
+		return keys.map((k) => displayNames[k] ?? k).join(", ");
+	}
 
-    function formatList(arr) {
-        return arr.map(k => displayNames[k]).join(", ");
-    }
+	function clearRelations(navEl, icons, tooltipEl) {
+		navEl.classList.remove("is-active");
+		for (const icon of icons) {
+			icon.classList.remove("relation-self", "relation-beats", "relation-loses");
+			if (icon.dataset.originalTitle) {
+				icon.setAttribute("title", icon.dataset.originalTitle);
+				delete icon.dataset.originalTitle;
+			}
+		}
+		tooltipEl.hidden = true;
+		tooltipEl.textContent = "";
+	}
 
-    function clear(nav, icons, tooltip) {
-        nav.classList.remove("is-active");
-        icons.forEach(icon => {
-            icon.classList.remove("relation-self", "relation-beats", "relation-loses");
-            if (icon.dataset.originalTitle) {
-                icon.title = icon.dataset.originalTitle;
-                delete icon.dataset.originalTitle;
-            }
-        });
-        tooltip.hidden = true;
-        tooltip.textContent = "";
-    }
+	document.addEventListener("DOMContentLoaded", () => {
+		const navEl = document.querySelector(".element-icons");
+		const tooltipEl = document.getElementById("element-tooltip");
+		const icons = Array.from(document.querySelectorAll(".element-icon"));
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const nav = document.querySelector(".element-icons");
-        const tooltip = document.getElementById("element-tooltip");
-        const icons = Array.from(document.querySelectorAll(".element-icon"));
+		if (!navEl || !tooltipEl || icons.length === 0) return;
 
-        const map = new Map();
-        icons.forEach(icon => map.set(icon.dataset.element, icon));
+		const iconByKey = new Map();
+		for (const icon of icons) {
+			const key = icon.dataset.element;
+			if (key) iconByKey.set(key, icon);
+		}
 
-        function activate(key) {
-            const rel = relationships[key];
-            nav.classList.add("is-active");
+		function activate(key) {
+			const rel = relationships[key];
+			if (!rel) return;
 
-            icons.forEach(icon => {
-                icon.classList.remove("relation-self", "relation-beats", "relation-loses");
-                if (!icon.dataset.originalTitle) {
-                    icon.dataset.originalTitle = icon.title || "";
-                }
-                icon.title = "";
-            });
+			navEl.classList.add("is-active");
+			for (const icon of icons) {
+				icon.classList.remove("relation-self", "relation-beats", "relation-loses");
+				// Avoid double-tooltips by temporarily clearing the native title.
+				if (!icon.dataset.originalTitle) {
+					icon.dataset.originalTitle = icon.getAttribute("title") ?? "";
+				}
+				icon.setAttribute("title", "");
+			}
 
-            map.get(key).classList.add("relation-self");
-            rel.beats.forEach(k => map.get(k).classList.add("relation-beats"));
-            rel.losesTo.forEach(k => map.get(k).classList.add("relation-loses"));
+			const selfIcon = iconByKey.get(key);
+			if (selfIcon) selfIcon.classList.add("relation-self");
 
-            tooltip.textContent =
-                `${displayNames[key]}\nBeats: ${formatList(rel.beats)}\nLoses to: ${formatList(rel.losesTo)}`;
-            tooltip.hidden = false;
+			for (const beatKey of rel.beats) {
+				const beatIcon = iconByKey.get(beatKey);
+				if (beatIcon) beatIcon.classList.add("relation-beats");
+			}
 
-            // Position tooltip ABOVE the hovered icon
-            const rect = map.get(key).getBoundingClientRect();
-            tooltip.style.left = `${rect.left + rect.width / 2}px`;
-            tooltip.style.top = `${rect.top - 10}px`;
-        }
+			for (const loseKey of rel.losesTo) {
+				const loseIcon = iconByKey.get(loseKey);
+				if (loseIcon) loseIcon.classList.add("relation-loses");
+			}
 
-        icons.forEach(icon => {
-            const key = icon.dataset.element;
-            icon.addEventListener("mouseenter", () => activate(key));
-            icon.addEventListener("focus", () => activate(key));
-            icon.addEventListener("mouseleave", () => clear(nav, icons, tooltip));
-            icon.addEventListener("blur", () => clear(nav, icons, tooltip));
-        });
+			tooltipEl.textContent =
+				`${displayNames[key] ?? key}\n` +
+				`Beats: ${formatList(rel.beats)}\n` +
+				`Loses to: ${formatList(rel.losesTo)}`;
+			tooltipEl.hidden = false;
+		}
 
-        nav.addEventListener("mouseleave", () => clear(nav, icons, tooltip));
-    });
+		for (const icon of icons) {
+			const key = icon.dataset.element;
+			if (!key) continue;
+
+			icon.addEventListener("mouseenter", () => activate(key));
+			icon.addEventListener("focus", () => activate(key));
+			icon.addEventListener("mouseleave", () => clearRelations(navEl, icons, tooltipEl));
+			icon.addEventListener("blur", () => clearRelations(navEl, icons, tooltipEl));
+		}
+
+		// If the user moves the mouse off the diagram entirely, clear state.
+		navEl.addEventListener("mouseleave", () => clearRelations(navEl, icons, tooltipEl));
+	});
 })();
