@@ -231,6 +231,33 @@
         <button class="arena-choice" data-choice="air"><img src="assets/images/air.png" alt="" aria-hidden="true"> Air</button>
         <button class="arena-choice" data-choice="lightning"><img src="assets/images/lightning.png" alt="" aria-hidden="true"> Lightning</button>
     </div>
+
+    <div class="arena-picks" aria-label="Round selections">
+        <div class="arena-pick arena-pick--player" id="playerPick" aria-live="polite">
+            <div class="arena-pick__label">You</div>
+            <div class="arena-pick__value">
+                <img id="playerPickIcon" class="arena-pick__icon" src="" alt="" hidden>
+                <span id="playerPickText">—</span>
+            </div>
+        </div>
+
+        <div class="arena-pick arena-pick--cpu" id="cpuPick" aria-live="polite">
+            <div class="arena-pick__label">Computer</div>
+            <div class="arena-pick__value">
+                <img id="cpuPickIcon" class="arena-pick__icon" src="" alt="" hidden>
+                <span id="cpuPickText">—</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="arena-symbols" aria-label="Chosen symbols">
+        <div class="arena-symbol arena-symbol--player" id="playerSymbol" aria-live="polite">
+            <img id="playerSymbolIcon" class="arena-symbol__icon" src="" alt="" hidden>
+        </div>
+        <div class="arena-symbol arena-symbol--cpu" id="cpuSymbol" aria-live="polite">
+            <img id="cpuSymbolIcon" class="arena-symbol__icon" src="" alt="" hidden>
+        </div>
+    </div>
     <div class="arena-status" id="arenaStatus" aria-live="polite"></div>
     <div class="score-box" id="scoreBox">
         <p class="score-label">Score</p>
