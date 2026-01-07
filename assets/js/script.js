@@ -1,94 +1,109 @@
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+const toggle = document.getElementById("themeToggle");
+
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+}
+
+toggle.addEventListener("click", toggleTheme);
+toggle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") toggleTheme();
+});
+
+/* =========================================================
+   MODAL
+========================================================= */
 const modal = document.getElementById("rulesModal");
 const openBtn = document.getElementById("openModal");
 const closeBtn = document.getElementById("closeModal");
 
-const tabs = document.querySelectorAll(".tab");
-const sections = document.querySelectorAll(".content-section");
-const content = document.getElementById("content");
-
-// OPEN MODAL
 let lastFocusedElement = null;
 
 function openModal() {
-  lastFocusedElement = document.activeElement;
-  modal.classList.add("active");
-  // Focus first tab button
-  setTimeout(() => {
-    const firstTab = modal.querySelector(".tab");
-    if (firstTab) firstTab.focus();
-  }, 0);
+    lastFocusedElement = document.activeElement;
+    modal.classList.add("open");
+
+    setTimeout(() => {
+        const firstTab = modal.querySelector(".tab");
+        if (firstTab) firstTab.focus();
+    }, 0);
 }
 
 function closeModal() {
-  modal.classList.remove("active");
-  if (lastFocusedElement) lastFocusedElement.focus();
+    modal.classList.remove("open");
+    if (lastFocusedElement) lastFocusedElement.focus();
 }
 
 openBtn.addEventListener("click", openModal);
-
 closeBtn.addEventListener("click", closeModal);
 
-// CLOSE ON OVERLAY CLICK
 modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
+    if (e.target === modal) closeModal();
 });
 
-// KEYBOARD NAVIGATION
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
 document.addEventListener("keydown", (e) => {
-  if (!modal.classList.contains("active")) return;
+    if (!modal.classList.contains("open")) return;
 
-  // ESC to close modal
-  if (e.key === "Escape") {
-    closeModal();
-    e.preventDefault();
-  }
+    if (e.key === "Escape") {
+        closeModal();
+        e.preventDefault();
+    }
 
-  // Arrow keys to navigate tabs
-  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-    const activeTab = modal.querySelector(".tab.active");
-    const allTabs = Array.from(modal.querySelectorAll(".tab"));
-    const currentIndex = allTabs.indexOf(activeTab);
-    const nextIndex = (currentIndex + 1) % allTabs.length;
-    allTabs[nextIndex].focus();
-    e.preventDefault();
-  }
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        const tabs = Array.from(modal.querySelectorAll(".tab"));
+        const activeTab = modal.querySelector(".tab.active");
+        const index = tabs.indexOf(activeTab);
+        const next = (index + 1) % tabs.length;
+        tabs[next].focus();
+        e.preventDefault();
+    }
 });
 
-// ACCORDION LOGIC
-function showTab(tabIndex) {
-  tabs.forEach(t => t.classList.remove("active"));
-  sections.forEach(s => s.classList.remove("active"));
+/* =========================================================
+   ACCORDION / TAB LOGIC
+========================================================= */
+const tabs = document.querySelectorAll(".tab");
+const sections = document.querySelectorAll(".content-section");
 
-  tabs[tabIndex].classList.add("active");
-  const target = tabs[tabIndex].dataset.content;
-  document.getElementById(target).classList.add("active");
+function showTab(i) {
+    tabs.forEach(t => t.classList.remove("active"));
+    sections.forEach(s => s.classList.remove("active"));
+
+    tabs[i].classList.add("active");
+    const target = tabs[i].dataset.content;
+    document.getElementById(target).classList.add("active");
 }
 
-tabs.forEach((tab, index) => {
-  tab.addEventListener("click", () => {
-    showTab(index);
-  });
+tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => showTab(i));
 });
 
-// ELEMENTS SUB-SELECTOR
+/* =========================================================
+   ELEMENT SUB-SELECTOR
+========================================================= */
 const elementButtons = document.querySelectorAll(".sub-header");
 const elementItems = document.querySelectorAll(".element-item");
 
 elementButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    elementButtons.forEach(b => {
-      b.classList.remove("active");
-      b.setAttribute("aria-expanded", "false");
-    });
-    elementItems.forEach(item => item.classList.remove("active"));
+    btn.addEventListener("click", () => {
+        elementButtons.forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-expanded", "false");
+        });
 
-    btn.classList.add("active");
-    btn.setAttribute("aria-expanded", "true");
-    const elementId = btn.dataset.element;
-    document.getElementById(elementId).classList.add("active");
-  });
+        elementItems.forEach(item => item.classList.remove("active"));
+
+        btn.classList.add("active");
+        btn.setAttribute("aria-expanded", "true");
+
+        const id = btn.dataset.element;
+        document.getElementById(id).classList.add("active");
+    });
 });
 
 const ELEMENT_RELATIONSHIPS = {
