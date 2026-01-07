@@ -64,17 +64,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// Random selector for the Computer's turn
-function getComputerChoice() {
-    const choices = ['Fire', 'Earth', 'Water', 'Air', 'Lightning'];
-    
-    // Generate a random index between 0 and 4
-    const randomIndex = Math.floor(Math.random() * choices.length);
-    
-    // Return the choice at the random index
-    return choices[randomIndex];
-}
-
 // ACCORDION LOGIC
 const tabs = Array.from(document.querySelectorAll(".accordion .tab"));
 const sections = Array.from(document.querySelectorAll(".accordion .content-section"));
@@ -137,6 +126,20 @@ const ELEMENT_DISPLAY_NAMES = {
 function normalizeElementChoice(choice) {
 	if (typeof choice !== "string") return "";
 	return choice.trim().toLowerCase();
+}
+
+// Random selector for the Computer's turn
+function getComputerChoice() {
+    const choices = ['Fire', 'Earth', 'Water', 'Air', 'Lightning'];
+    
+    // Generate a random index between 0 and 4
+    const randomIndex = Math.floor(Math.random() * choices.length);
+
+	// Get the randomly selected choice
+    const selectedChoice = choices[randomIndex];
+    
+    // Normalize and return the choice
+    return normalizeElementChoice(selectedChoice);
 }
 
 function determineWinner(playerChoice, opponentChoice) {
