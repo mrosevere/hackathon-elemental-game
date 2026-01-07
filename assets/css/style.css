@@ -561,3 +561,27 @@ body.light-mode .game-arena {
     color: #222;
     border: 1px solid #ccc;
 }
+
+body.light-mode .arena-overlay {
+    /* Keep a dimming layer in light mode while matching overall theme */
+    background: rgba(0, 0, 0, 0.35);
+}
+
+body.light-mode .overlay-inner {
+    background: #ffffff;
+    color: #222;
+    border: 1px solid #ccc;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+body.light-mode .arena-choice {
+    background: #f5f7ff;
+    color: #222;
+    border: 1px solid #d0d7e2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .arena-choice:hover {
+    border-color: #4a8cff;
+    background: #e4edff;
+}
