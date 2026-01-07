@@ -456,9 +456,3 @@ body {
 	padding: 30px;
 	text-align: center;
 }
-
-/* SPACER FOR SCROLL */
-.content-spacer {
-	height: 200vh;
-	pointer-events: none;
-}
