@@ -333,24 +333,40 @@ body.light-mode .mode-btn.is-active {
     .arena-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
+    
     .game-arena {
         padding-bottom: 300px;
     }
 
+    /* Inline layout: left score, round counter (center), right score */
+    .score-box,
+    .score-box-opponent,
+    .round-counter {
+        position: absolute;
+        bottom: calc(var(--arena-footer-height, 140px) + 10px);
+        top: auto;
+        transform: none;
+        box-sizing: border-box;
+    }
+
+    /* Shrink controls on small screens so all three fit side-by-side */
     .score-box,
     .score-box-opponent {
-        bottom: 140px;
-        min-width: 95px;
-        padding: 10px 12px;
+        width: 22%;
+        padding: 4px 6px;
+        min-width: 56px;
     }
 
-    .score-box {
-        left: 12px;
-    }
+    .score-box { left: 5%; }
+    .score-box-opponent { right: 5%; }
 
-    .score-box-opponent {
-        right: 12px;
+    .round-counter {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36%;
+        padding: 6px 8px;
+        min-width: 72px;
+        min-height: 36px;
     }
 
     .reset-btn {
@@ -365,7 +381,7 @@ body.light-mode .mode-btn.is-active {
 
     .round-display,
     .score-value {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 }
 .arena-choice {
@@ -541,7 +557,7 @@ body.light-mode .mode-btn.is-active {
 
 .score-box {
     position: absolute;
-    bottom: clamp(220px, 26vw, 240px);
+    bottom: calc(var(--arena-footer-height, 140px) + clamp(18px, 3vw, 28px));
     left: clamp(8px, 2vw, 18px);
     background: rgba(0, 224, 255, 0.15);
     border: 1px solid rgba(0, 224, 255, 0.35);
@@ -577,39 +593,24 @@ body.light-mode .mode-btn.is-active {
     color: var(--text-muted);
 }
 
-.round-value {
-    margin: clamp(2px, 0.5vw, 4px) 0 0;
-    font-size: clamp(1.4rem, 3vw, 1.75rem);
-    font-weight: 800;
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
-}
-
-.score-value {
-    margin: clamp(2px, 0.5vw, 4px) 0 0;
-    font-size: clamp(1.4rem, 3vw, 1.75rem);
-    font-weight: 800;
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
-}
-
 .round-counter {
     position: absolute;
-    /* sit above the arena footer (reset/progress) and below arena status text */
-    top: calc(var(--arena-footer-height, 500px) + 10px);
+    /* align vertically with the score boxes */
+    bottom: calc(var(--arena-footer-height, 140px) + clamp(12px, 2vw, 20px));
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 12px;
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
     backdrop-filter: var(--glass-blur);
     text-align: center;
-}
-
-/* Make round counter clearly visible above footer and animate on change */
-.round-counter {
-    z-index: 50;
+    z-index: 50; /* placed behind overlay but above footer */
+    min-width: clamp(90px, 18vw, 160px);
+    min-height: 44px; /* match reset/score control height */
     pointer-events: auto;
 }
 
@@ -622,6 +623,36 @@ body.light-mode .mode-btn.is-active {
     30% { transform: translateX(-50%) scale(1.08); }
     60% { transform: translateX(-50%) scale(0.98); }
     100% { transform: translateX(-50%) scale(1); }
+}
+
+/* Responsive adjustments for the round counter */
+@media (max-width: 768px) {
+    .round-counter {
+        bottom: calc(var(--arena-footer-height, 140px) + clamp(12px, 2vw, 20px));
+        padding: clamp(8px, 1.6vw, 12px) clamp(8px, 4vw, 14px);
+        min-width: clamp(84px, 20vw, 140px);
+    }
+    .round-display { font-size: clamp(1.1rem, 3.2vw, 1.4rem); }
+}
+
+@media (max-width: 600px) {
+    .round-counter {
+        bottom: calc(var(--arena-footer-height, 140px) + 10px);
+        padding: 8px 10px;
+        min-width: 110px;
+    }
+    .round-display { font-size: 1.1rem; }
+    .round-label { font-size: 0.65rem; }
+}
+
+@media (max-width: 480px) {
+    .round-counter {
+        bottom: calc(var(--arena-footer-height, 140px) + 14px);
+        padding: 6px 8px;
+        min-width: 95px;
+    }
+    .round-display { font-size: 1rem; }
+    .round-label { font-size: 0.6rem; }
 }
 
 .round-label {
@@ -910,8 +941,8 @@ body.light-mode .reset-btn:hover {
 
     .score-box {
         bottom: 150px;
-        padding: 8px 10px;
-        min-width: 85px;
+        padding: 6px 8px;
+        min-width: 60px;
     }
 
     .score-label {
