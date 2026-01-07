@@ -6,7 +6,6 @@ Whitespace-only cleanup script
 - Ensures file ends with a single newline
 Targets: .html, .css, .js, .md files under the repo root
 """
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
