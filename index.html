@@ -32,9 +32,6 @@
     <div class="toggle-circle"></div>
 </div>
 
-<!-- Rules Button -->
-<button id="openModal" class="rules-btn"><strong>Rules</strong></button>
-
 <header class="site-header">
     <h1>Stormbound</h1>
     <h2>Battle Of The Elements</h2>
@@ -64,12 +61,12 @@
                         <h2>Rules</h2>
                         <p>
                             Stormbound: A Battle of the Elements is a modern take on Rock, Paper, Scissors.<br>
-                            Choose from:
-                            Water <img src="assets/images/water.png" alt="Water">,
-                            Fire <img src="assets/images/fire.png" alt="Fire">,
-                            Earth <img src="assets/images/earth.png" alt="Earth">,
-                            Air <img src="assets/images/air.png" alt="Air">,
-                            Lightning <img src="assets/images/lightning.png" alt="Lightning">.<br>
+                            Choose from:<br>
+                            Water <img src="assets/images/water.png" alt="Water"><br>
+                            Fire <img src="assets/images/fire.png" alt="Fire"><br>
+                            Earth <img src="assets/images/earth.png" alt="Earth"><br>
+                            Air <img src="assets/images/air.png" alt="Air"><br>
+                            Lightning <img src="assets/images/lightning.png" alt="Lightning"><br>
                             After your choice, the computer selects its element after a countdown.
                         </p>
                     </div>
@@ -90,28 +87,98 @@
 
                             <div class="elements-content">
                                 <div class="element-item active" id="water">
-                                    <p><strong>BEATS</strong> Fire, Lightning<br>
-                                    <strong>LOSES TO</strong> Air, Earth</p>
+                                    <table>
+                                        <tr>
+                                            <th>BEATS</th>
+                                            <td>
+                                                Fire <img src="assets/images/fire.png" alt="Fire"><br>
+                                                Lightning <img src="assets/images/lightning.png" alt="Lightning">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>LOSES TO</th>
+                                            <td>
+                                                Air <img src="assets/images/air.png" alt="Air"><br>
+                                                Earth <img src="assets/images/earth.png" alt="Earth">
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
 
                                 <div class="element-item" id="fire">
-                                    <p><strong>BEATS</strong> Air, Earth<br>
-                                    <strong>LOSES TO</strong> Water, Lightning</p>
+                                    <table>
+                                        <tr>
+                                            <th>BEATS</th>
+                                            <td>
+                                                Air <img src="assets/images/air.png" alt="Air"><br>
+                                                Earth <img src="assets/images/earth.png" alt="Earth">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>LOSES TO</th>
+                                            <td>
+                                                Water <img src="assets/images/water.png" alt="Water"><br>
+                                                Lightning <img src="assets/images/lightning.png" alt="Lightning">
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
 
                                 <div class="element-item" id="earth">
-                                    <p><strong>BEATS</strong> Lightning, Water<br>
-                                    <strong>LOSES TO</strong> Air, Fire</p>
+                                    <table>
+                                        <tr>
+                                            <th>BEATS</th>
+                                            <td>
+                                                Lightning <img src="assets/images/lightning.png" alt="Lightning"><br>
+                                                Water <img src="assets/images/water.png" alt="Water">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>LOSES TO</th>
+                                            <td>
+                                                Air <img src="assets/images/air.png" alt="Air"><br>
+                                                Fire <img src="assets/images/fire.png" alt="Fire">
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
 
                                 <div class="element-item" id="air">
-                                    <p><strong>BEATS</strong> Earth, Water<br>
-                                    <strong>LOSES TO</strong> Fire, Lightning</p>
+                                    <table>
+                                        <tr>
+                                            <th>BEATS</th>
+                                            <td>
+                                                Earth <img src="assets/images/earth.png" alt="Earth"><br>
+                                                Water <img src="assets/images/water.png" alt="Water">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>LOSES TO</th>
+                                            <td>
+                                                Fire <img src="assets/images/fire.png" alt="Fire"><br>
+                                                Lightning <img src="assets/images/lightning.png" alt="Lightning">
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
 
                                 <div class="element-item" id="lightning">
-                                    <p><strong>BEATS</strong> Water, Air<br>
-                                    <strong>LOSES TO</strong> Earth, Fire</p>
+                                    <table>
+                                        <tr>
+                                            <th>BEATS</th>
+                                            <td>
+                                                Water <img src="assets/images/water.png" alt="Water"><br>
+                                                Air <img src="assets/images/air.png" alt="Air">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>LOSES TO</th>
+                                            <td>
+                                                Earth <img src="assets/images/earth.png" alt="Earth"><br>
+                                                Fire <img src="assets/images/fire.png" alt="Fire">
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +212,10 @@
 
 </main>
 
-<!-- GAME ARENA (below main, above footer) -->
+<!-- Rules Button (positioned below tooltip, above game arena) -->
+<button id="openModal" class="rules-btn"><strong>Rules</strong></button>
+
+<!-- GAME ARENA (below rules button, above footer) -->
 <section id="game-arena" class="game-arena">
     <div class="arena-header">
         <h3>Game Arena</h3>

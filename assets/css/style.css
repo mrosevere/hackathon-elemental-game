@@ -76,13 +76,11 @@ body.light-mode .toggle-circle {
 
 /* ========== RULES BUTTON (MATCHED TO TOGGLE) ========== */
 .rules-btn {
-    position: fixed;
-    top: 60px;
-    right: 16px;
-    z-index: 999;
-
-    width: 54px;
-    height: 30px;
+    position: relative;
+    z-index: 10;
+    margin: 12px auto 8px;
+    width: 120px;
+    height: 38px;
     padding: 0;
 
     display: flex;
@@ -94,7 +92,7 @@ body.light-mode .toggle-circle {
     background: radial-gradient(circle at 10% 0, #3b8dff 0, #141927 38%, #04050a 100%);
     color: var(--text-main);
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     cursor: pointer;
@@ -423,10 +421,28 @@ body.light-mode .rules-btn:hover {
 .elements-container {
     display: grid;
     grid-template-columns: 210px minmax(0, 1fr);
+    grid-template-rows: auto auto;
     gap: 10px;
 }
 
+.elements-tabs {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+    .elements-tabs h2,
+    .elements-tabs p {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
 .sub-header {
+    display: block;
+    flex: 1 1 18%;
+    min-width: 140px;
     border-radius: 12px;
     padding: 7px 8px;
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.08) 0, rgba(3, 5, 14, 0.98) 60%);
@@ -436,6 +452,7 @@ body.light-mode .rules-btn:hover {
 .sub-header.active {
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.22) 0, rgba(16, 47, 86, 0.98) 60%);
     border-color: var(--accent);
+    color: #ffffff;
 }
 
 .element-item {
@@ -444,6 +461,23 @@ body.light-mode .rules-btn:hover {
 
 .element-item.active {
     display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.elements-content {
+    grid-column: 1 / -1;
+}
+
+.element-item table {
+    margin: 0 auto;
+    width: auto;
+}
+
+.element-item th,
+.element-item td {
+    text-align: center;
+    padding: 8px 12px;
 }
 
 /* ========== ICON NAV ========== */
@@ -470,6 +504,8 @@ body.light-mode .rules-btn:hover {
     color: #fff;
     font-size: 0.8rem;
     white-space: pre-line;
+    z-index: 1300;
+    transform: translateX(-50%);
 }
 
 /* ========== FOOTER ========== */
@@ -526,25 +562,33 @@ body.light-mode .modal-content {
 }
 
 body.light-mode .tab {
-    background: #e9edf5;
-    color: #333;
+    background: linear-gradient(135deg, #f4f7fb 0%, #cfdaf1 100%);
+    color: #222222;
+    border: 1px solid #bfc8d6;
 }
 
 body.light-mode .tab.active {
-    background: #d7e4ff;
-    border-color: #4a8cff;
-    color: #000;
+    background: linear-gradient(135deg, #eaf1fb 0%, #c0d2f1 100%);
+    border-color: #b7c3d4;
+    color: #111111;
 }
 
 body.light-mode .sub-header {
-    background: #e9edf5;
-    color: #333;
+    background: linear-gradient(135deg, #f4f7fb 0%, #cfdaf1 100%);
+    color: #222222;
+    border: 1px solid #bfc8d6;
 }
 
 body.light-mode .sub-header.active {
-    background: #d7e4ff;
-    border-color: #4a8cff;
-    color: #000;
+    background: linear-gradient(135deg, #eaf1fb 0%, #c0d2f1 100%);
+    border-color: #b7c3d4;
+    color: #111111;
+}
+
+body.light-mode .accordion-content {
+    background: linear-gradient(135deg, #f4f7fb 0%, #cfdaf1 100%);
+    color: #222222;
+    border: 1px solid #bfc8d6;
 }
 
 body.light-mode .site-footer {
