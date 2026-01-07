@@ -91,22 +91,53 @@ elementButtons.forEach((btn) => {
   });
 });
 
-(() => {
-	const relationships = {
-		lightning: { beats: ["water", "air"], losesTo: ["earth", "fire"] },
-		fire: { beats: ["air", "earth"], losesTo: ["water", "lightning"] },
-		air: { beats: ["earth", "water"], losesTo: ["fire", "lightning"] },
-		earth: { beats: ["lightning", "water"], losesTo: ["air", "fire"] },
-		water: { beats: ["fire", "lightning"], losesTo: ["air", "earth"] },
-	};
+const ELEMENT_RELATIONSHIPS = {
+	lightning: { beats: ["water", "air"], losesTo: ["earth", "fire"] },
+	fire: { beats: ["air", "earth"], losesTo: ["water", "lightning"] },
+	air: { beats: ["earth", "water"], losesTo: ["fire", "lightning"] },
+	earth: { beats: ["lightning", "water"], losesTo: ["air", "fire"] },
+	water: { beats: ["fire", "lightning"], losesTo: ["air", "earth"] },
+};
 
-	const displayNames = {
-		lightning: "Lightning",
-		fire: "Fire",
-		air: "Air",
-		earth: "Earth",
-		water: "Water",
-	};
+const ELEMENT_DISPLAY_NAMES = {
+	lightning: "Lightning",
+	fire: "Fire",
+	air: "Air",
+	earth: "Earth",
+	water: "Water",
+};
+
+function normalizeElementChoice(choice) {
+	if (typeof choice !== "string") return "";
+	return choice.trim().toLowerCase();
+}
+
+function determineWinner(playerChoice, opponentChoice) {
+	const player = normalizeElementChoice(playerChoice);
+	const opponent = normalizeElementChoice(opponentChoice);
+
+	if (!(player in ELEMENT_RELATIONSHIPS)) {
+		throw new TypeError(
+			`Invalid playerChoice: ${String(playerChoice)}. Valid choices: ${Object.keys(ELEMENT_RELATIONSHIPS).join(", ")}`
+		);
+	}
+	if (!(opponent in ELEMENT_RELATIONSHIPS)) {
+		throw new TypeError(
+			`Invalid opponentChoice: ${String(opponentChoice)}. Valid choices: ${Object.keys(ELEMENT_RELATIONSHIPS).join(", ")}`
+		);
+	}
+
+	if (player === opponent) return "tie";
+	if (ELEMENT_RELATIONSHIPS[player].beats.includes(opponent)) return "win";
+	return "lose";
+}
+
+// Optional: make the function callable from HTML inline handlers / other scripts.
+window.determineWinner = determineWinner;
+
+(() => {
+	const relationships = ELEMENT_RELATIONSHIPS;
+	const displayNames = ELEMENT_DISPLAY_NAMES;
 
 	function formatList(keys) {
 		return keys.map((k) => displayNames[k] ?? k).join(", ");
