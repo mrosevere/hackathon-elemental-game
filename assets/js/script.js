@@ -514,8 +514,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
-	setMode(gameMode, { preserveActive: false });
-
 	// Element choice interactions using existing game logic.
 	function clearChoiceEffects() {
 		for (const choiceBtn of choices) {
