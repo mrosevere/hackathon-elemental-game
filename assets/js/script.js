@@ -303,13 +303,57 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// Element choice interactions using existing game logic.
+	function clearChoiceEffects() {
+		for (const choiceBtn of choices) {
+			choiceBtn.classList.remove(
+				"is-player",
+				"is-opponent",
+				"result-win",
+				"result-lose",
+				"result-tie"
+			);
+		}
+	}
+
+	function restartResultAnimation(el, className) {
+		if (!el) return;
+		el.classList.remove("result-win", "result-lose", "result-tie");
+		// Force reflow so the animation reliably re-triggers.
+		void el.offsetWidth;
+		el.classList.add(className);
+	}
+
+	function findChoiceButton(choiceKey) {
+		return choices.find((b) => b.dataset.choice === choiceKey) ?? null;
+	}
+
 	choices.forEach((btn) => {
 		btn.addEventListener("click", () => {
 			const player = btn.dataset.choice;
-			const opponent = getComputerChoice().toLowerCase();
+			const opponent = getComputerChoice();
 			const outcome = determineWinner(player, opponent);
 			const name = (k) => ELEMENT_DISPLAY_NAMES[k] || k;
-			if (statusEl) statusEl.textContent = `You chose ${name(player)}. Computer chose ${name(opponent)}. Result: ${outcome.toUpperCase()}.`;
+
+			clearChoiceEffects();
+			const opponentBtn = findChoiceButton(opponent);
+
+			btn.classList.add("is-player");
+			if (opponentBtn) opponentBtn.classList.add("is-opponent");
+
+			if (outcome === "tie") {
+				restartResultAnimation(btn, "result-tie");
+				restartResultAnimation(opponentBtn, "result-tie");
+			} else if (outcome === "win") {
+				restartResultAnimation(btn, "result-win");
+				restartResultAnimation(opponentBtn, "result-lose");
+			} else {
+				restartResultAnimation(btn, "result-lose");
+				restartResultAnimation(opponentBtn, "result-win");
+			}
+
+			if (statusEl) {
+				statusEl.textContent = `You chose ${name(player)}. Computer chose ${name(opponent)}. Result: ${outcome.toUpperCase()}.`;
+			}
 		});
 	});
 });

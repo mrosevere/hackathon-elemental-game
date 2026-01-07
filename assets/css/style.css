@@ -237,6 +237,7 @@ body.light-mode .rules-btn:hover {
     }
 }
 .arena-choice {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -247,6 +248,127 @@ body.light-mode .rules-btn:hover {
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.08) 0, rgba(3, 5, 14, 0.98) 60%);
     color: var(--text-main);
     cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-med), background var(--transition-med), border-color var(--transition-med), filter var(--transition-med);
+    will-change: transform;
+}
+
+.arena-choice:hover {
+    box-shadow: 0 0 0 1px rgba(0, 224, 255, 0.18), 0 12px 26px rgba(0, 0, 0, 0.55);
+    transform: translateY(-1px);
+}
+
+.arena-choice:focus-visible {
+    outline: 2px solid rgba(0, 224, 255, 0.55);
+    outline-offset: 2px;
+}
+
+/* Element-tuned accent used by win/lose animations */
+.arena-choice {
+    --element-accent: var(--accent);
+}
+
+.arena-choice[data-choice="fire"] { --element-accent: var(--danger); }
+.arena-choice[data-choice="earth"] { --element-accent: var(--accent-contrast); }
+.arena-choice[data-choice="air"] { --element-accent: var(--neutral); }
+.arena-choice[data-choice="water"] { --element-accent: var(--accent); }
+.arena-choice[data-choice="lightning"] { --element-accent: var(--accent); }
+
+/* Under-selector markers: show who picked what */
+.arena-choice::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: -6px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    opacity: 0;
+    transform: scaleX(0.55);
+    transform-origin: center;
+    transition: opacity var(--transition-fast), transform var(--transition-med), background var(--transition-med);
+}
+
+.arena-choice.is-player::after {
+    opacity: 1;
+    transform: scaleX(1);
+    background: var(--accent);
+}
+
+.arena-choice.is-opponent::after {
+    opacity: 1;
+    transform: scaleX(1);
+    background: var(--accent-contrast);
+}
+
+.arena-choice.is-player {
+    border-color: rgba(0, 224, 255, 0.35);
+}
+
+.arena-choice.is-opponent {
+    border-color: rgba(255, 204, 102, 0.35);
+}
+
+/* Result animations (base) */
+.arena-choice.result-win {
+    --result-scale: 1.06;
+    --result-tilt: -1deg;
+    animation: arena-result-win 650ms ease-out 1;
+    filter: drop-shadow(0 0 12px var(--element-accent));
+}
+
+.arena-choice.result-lose {
+    --result-shake: 6px;
+    animation: arena-result-lose 520ms ease-out 1;
+    filter: grayscale(0.25) saturate(0.85);
+}
+
+.arena-choice.result-tie {
+    animation: arena-result-tie 480ms ease-out 1;
+}
+
+/* Element-specific tuning (same keyframes, slightly different feel) */
+.arena-choice.result-win[data-choice="fire"] { --result-scale: 1.08; --result-tilt: -2deg; }
+.arena-choice.result-win[data-choice="water"] { --result-scale: 1.055; --result-tilt: 1deg; }
+.arena-choice.result-win[data-choice="earth"] { --result-scale: 1.045; --result-tilt: 0deg; }
+.arena-choice.result-win[data-choice="air"] { --result-scale: 1.06; --result-tilt: 2deg; }
+.arena-choice.result-win[data-choice="lightning"] { --result-scale: 1.09; --result-tilt: -3deg; }
+
+.arena-choice.result-lose[data-choice="earth"] { --result-shake: 8px; }
+.arena-choice.result-lose[data-choice="air"] { --result-shake: 5px; }
+.arena-choice.result-lose[data-choice="lightning"] { --result-shake: 7px; }
+
+@keyframes arena-result-win {
+    0% { transform: translateY(0) scale(1) rotate(0); }
+    45% { transform: translateY(-2px) scale(var(--result-scale)) rotate(var(--result-tilt)); }
+    100% { transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes arena-result-lose {
+    0% { transform: translateX(0); }
+    15% { transform: translateX(calc(var(--result-shake) * -1)); }
+    30% { transform: translateX(var(--result-shake)); }
+    45% { transform: translateX(calc(var(--result-shake) * -0.75)); }
+    60% { transform: translateX(calc(var(--result-shake) * 0.6)); }
+    80% { transform: translateX(calc(var(--result-shake) * -0.35)); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes arena-result-tie {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .arena-choice,
+    .arena-status {
+        transition: none;
+    }
+    .arena-choice.result-win,
+    .arena-choice.result-lose,
+    .arena-choice.result-tie {
+        animation: none;
+    }
 }
 
 .arena-choice img {
