@@ -1537,6 +1537,13 @@ body.light-mode .reset-btn:hover {
     align-items: center;
 }
 
+.achievements-note {
+    margin: clamp(6px, 1.5vw, 10px) 0 0;
+    font-size: clamp(0.75rem, 1.4vw, 0.9rem);
+    color: var(--text-muted);
+    opacity: 0.95;
+}
+
 .achievement-badge {
     display: flex;
     flex-direction: column;
