@@ -4,7 +4,8 @@
 const toggle = document.getElementById("themeToggle");
 
 function toggleTheme() {
-    document.body.classList.toggle("light-mode");
+	const isLight = document.body.classList.toggle("light-mode");
+	if (toggle) toggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
 }
 
 toggle.addEventListener("click", toggleTheme);
@@ -81,6 +82,20 @@ if (resultModal) {
     resultModal.addEventListener("click", (e) => {
         if (e.target === resultModal) closeResultModal();
     });
+}
+
+// Accordion close button inside rules modal
+const accordionCloseBtn = document.getElementById('accordionClose');
+if (accordionCloseBtn) {
+	accordionCloseBtn.addEventListener('click', () => {
+		closeModal();
+	});
+	accordionCloseBtn.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			closeModal();
+		}
+	});
 }
 
 /* =========================================================

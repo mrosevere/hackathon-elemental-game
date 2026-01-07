@@ -24,7 +24,7 @@
 <img src="assets/images/logo.png" alt="Game Logo" class="site-logo">
 
 <!-- Light Mode Toggle -->
-<div id="themeToggle" class="toggle-switch" role="button" tabindex="0">
+<div id="themeToggle" class="toggle-switch" role="button" tabindex="0" aria-pressed="false">
     <div class="toggle-circle"></div>
 </div>
 
@@ -52,6 +52,7 @@
 
                 <!-- RIGHT CONTENT -->
                 <div class="accordion-content">
+                    <button class="accordion-close" id="accordionClose" aria-label="Close">&times;</button>
 
                     <div class="content-section active" id="rules">
                         <h2>Rules</h2>
