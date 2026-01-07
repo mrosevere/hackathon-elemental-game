@@ -335,7 +335,7 @@ body.light-mode .mode-btn.is-active {
     }
     
     .game-arena {
-        padding-bottom: 300px;
+        padding-bottom: clamp(280px, 50vw, 320px);
     }
 
     /* Inline layout: left score, round counter (center), right score */
