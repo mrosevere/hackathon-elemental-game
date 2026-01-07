@@ -604,18 +604,18 @@ function updateBadgeProgress(mode) {
 function updateScore(result) {
 	if (!seriesActive && targetWins !== null) return;
 
-	// Always count the round (win / lose / tie) when a match completes
+	// All match outcomes (win, lose, tie) increment the round counter
 	totalRounds += 1;
 
+	// Update player/computer scores based on match result
 	if (result === "win") {
 		playerScore += 1;
 		// Unlock first win achievement
 		unlockAchievement('first-win');
 	} else if (result === "lose") {
 		computerScore += 1;
-	} else if (result === "tie") {
-		// tie: no score change, but round still counts
 	}
+	// Note: tie results don't change scores, but round was already counted above
 	const scoreEl = document.getElementById("scoreValue");
 	if (scoreEl) scoreEl.textContent = playerScore;
 	const computerScoreEl = document.getElementById("computerScoreValue");
