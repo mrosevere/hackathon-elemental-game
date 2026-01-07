@@ -1747,20 +1747,6 @@ body.light-mode .reset-btn:hover {
 @media (max-width: 600px) {
     .arena-progress-caption { font-size: 0.85rem; }
 }
-.progress-track {
-    width: 100%;
-    height: clamp(10px, 1.4vw, 14px);
-    background: rgba(255,255,255,0.06);
-    border-radius: 999px;
-    overflow: hidden;
-    position: relative;
-}
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, rgba(0,224,255,0.9), rgba(96,239,255,0.7));
-    transition: width 420ms cubic-bezier(.2,.8,.2,1);
-}
 .progress-track[aria-valuenow="100"] .progress-fill {
     box-shadow: 0 0 18px rgba(0,224,255,0.45);
 }
