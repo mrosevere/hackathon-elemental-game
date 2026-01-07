@@ -186,3 +186,17 @@ elementButtons.forEach((btn) => {
 		navEl.addEventListener("mouseleave", () => clearRelations(navEl, icons, tooltipEl));
 	});
 })();
+
+// GAME SPACE ACTIVATION
+const gameSpace = document.getElementById("gameSpace");
+const playBtn = document.getElementById("playBtn");
+
+if (gameSpace && playBtn) {
+	// Set initial inactive state
+	gameSpace.classList.add("inactive");
+
+	playBtn.addEventListener("click", () => {
+		gameSpace.classList.remove("inactive");
+		gameSpace.classList.add("active");
+	});
+}

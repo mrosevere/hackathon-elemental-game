@@ -147,6 +147,30 @@
   </div>
 
     <nav class="element-icons" aria-label="Element win/loss chart">
+        <!-- SVG Pentagram Arrows -->
+        <svg class="pentagram-lines" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrowhead" markerWidth="5" markerHeight="5" refX="2.5" refY="1.5" orient="auto">
+                    <polygon points="0 0, 5 1.5, 0 3" fill="#667eea" />
+                </marker>
+            </defs>
+            <!-- Lightning to Fire -->
+            <line x1="50" y1="8" x2="90" y2="37" stroke="#667eea" stroke-width="2" marker-mid="url(#arrowhead)" />
+            <path d="M 50 8 L 70 22.5 L 90 37" stroke="none" fill="none" marker-mid="url(#arrowhead)" />
+            <!-- Fire to Air -->
+            <line x1="90" y1="37" x2="75" y2="84" stroke="#667eea" stroke-width="2" />
+            <path d="M 90 37 L 82.5 60.5 L 75 84" stroke="none" fill="none" marker-mid="url(#arrowhead)" />
+            <!-- Air to Earth -->
+            <line x1="75" y1="84" x2="25" y2="84" stroke="#667eea" stroke-width="2" />
+            <path d="M 75 84 L 50 84 L 25 84" stroke="none" fill="none" marker-mid="url(#arrowhead)" />
+            <!-- Earth to Water -->
+            <line x1="25" y1="84" x2="10" y2="37" stroke="#667eea" stroke-width="2" />
+            <path d="M 25 84 L 17.5 60.5 L 10 37" stroke="none" fill="none" marker-mid="url(#arrowhead)" />
+            <!-- Water to Lightning -->
+            <line x1="10" y1="37" x2="50" y2="8" stroke="#667eea" stroke-width="2" />
+            <path d="M 10 37 L 30 22.5 L 50 8" stroke="none" fill="none" marker-mid="url(#arrowhead)" />
+        </svg>
+        
         <img
             class="element-icon element-icon--lightning"
             src="assets/images/lightning.png"
@@ -190,6 +214,22 @@
     </nav>
 
     <div id="element-tooltip" class="element-tooltip" role="status" aria-live="polite" hidden></div>
+
+    <!-- GAME SPACE -->
+    <section class="game-space" id="gameSpace">
+      <div class="game-overlay">
+        <button class="play-btn" id="playBtn">
+          <span>▶</span> Play Game
+        </button>
+      </div>
+      <div class="game-content">
+        <h2>Game Arena</h2>
+        <div class="game-area">
+          <!-- Game elements go here -->
+          <p>Select your element and battle!</p>
+        </div>
+      </div>
+    </section>
 
    <!-- link to JavaScript -->
      <script src="assets/js/script.js"></script>
