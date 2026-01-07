@@ -272,6 +272,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	const cpuPickIcon = document.getElementById("cpuPickIcon");
 	const playerPickText = document.getElementById("playerPickText");
 	const cpuPickText = document.getElementById("cpuPickText");
+	const playerSymbolEl = document.getElementById("playerSymbol");
+	const cpuSymbolEl = document.getElementById("cpuSymbol");
+	const playerSymbolIcon = document.getElementById("playerSymbolIcon");
+	const cpuSymbolIcon = document.getElementById("cpuSymbolIcon");
 
 	if (!arena) return;
 
@@ -287,6 +291,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			cpuPickEl.removeAttribute("data-choice");
 			cpuPickEl.classList.remove("result-win", "result-lose", "result-tie");
 		}
+		if (playerSymbolEl) {
+			playerSymbolEl.removeAttribute("data-choice");
+			playerSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+		}
+		if (cpuSymbolEl) {
+			cpuSymbolEl.removeAttribute("data-choice");
+			cpuSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+		}
 		if (playerPickText) playerPickText.textContent = "—";
 		if (cpuPickText) cpuPickText.textContent = "—";
 		if (playerPickIcon) {
@@ -299,6 +311,16 @@ document.addEventListener("DOMContentLoaded", () => {
 			cpuPickIcon.setAttribute("src", "");
 			cpuPickIcon.setAttribute("alt", "");
 		}
+		if (playerSymbolIcon) {
+			playerSymbolIcon.hidden = true;
+			playerSymbolIcon.setAttribute("src", "");
+			playerSymbolIcon.setAttribute("alt", "");
+		}
+		if (cpuSymbolIcon) {
+			cpuSymbolIcon.hidden = true;
+			cpuSymbolIcon.setAttribute("src", "");
+			cpuSymbolIcon.setAttribute("alt", "");
+		}
 	}
 
 	function updatePickDisplay(side, choiceKey) {
@@ -309,6 +331,17 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (pickEl) pickEl.dataset.choice = choiceKey;
 		if (textEl) textEl.textContent = name(choiceKey);
 
+		if (iconEl) {
+			iconEl.hidden = false;
+			iconEl.src = `assets/images/${choiceKey}.png`;
+			iconEl.alt = name(choiceKey);
+		}
+	}
+
+	function updateSymbolDisplay(side, choiceKey) {
+		const symbolEl = side === "player" ? playerSymbolEl : cpuSymbolEl;
+		const iconEl = side === "player" ? playerSymbolIcon : cpuSymbolIcon;
+		if (symbolEl) symbolEl.dataset.choice = choiceKey;
 		if (iconEl) {
 			iconEl.hidden = false;
 			iconEl.src = `assets/images/${choiceKey}.png`;
@@ -361,6 +394,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		if (playerPickEl) playerPickEl.classList.remove("result-win", "result-lose", "result-tie");
 		if (cpuPickEl) cpuPickEl.classList.remove("result-win", "result-lose", "result-tie");
+		if (playerSymbolEl) playerSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
+		if (cpuSymbolEl) cpuSymbolEl.classList.remove("result-win", "result-lose", "result-tie");
 	}
 
 	function restartResultAnimation(el, className) {
@@ -388,22 +423,30 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (opponentBtn) opponentBtn.classList.add("is-opponent");
 			updatePickDisplay("player", player);
 			updatePickDisplay("cpu", opponent);
+			updateSymbolDisplay("player", player);
+			updateSymbolDisplay("cpu", opponent);
 
 			if (outcome === "tie") {
 				restartResultAnimation(btn, "result-tie");
 				restartResultAnimation(opponentBtn, "result-tie");
 				restartResultAnimation(playerPickEl, "result-tie");
 				restartResultAnimation(cpuPickEl, "result-tie");
+				restartResultAnimation(playerSymbolEl, "result-tie");
+				restartResultAnimation(cpuSymbolEl, "result-tie");
 			} else if (outcome === "win") {
 				restartResultAnimation(btn, "result-win");
 				restartResultAnimation(opponentBtn, "result-lose");
 				restartResultAnimation(playerPickEl, "result-win");
 				restartResultAnimation(cpuPickEl, "result-lose");
+				restartResultAnimation(playerSymbolEl, "result-win");
+				restartResultAnimation(cpuSymbolEl, "result-lose");
 			} else {
 				restartResultAnimation(btn, "result-lose");
 				restartResultAnimation(opponentBtn, "result-win");
 				restartResultAnimation(playerPickEl, "result-lose");
 				restartResultAnimation(cpuPickEl, "result-win");
+				restartResultAnimation(playerSymbolEl, "result-lose");
+				restartResultAnimation(cpuSymbolEl, "result-win");
 			}
 
 			if (statusEl) {

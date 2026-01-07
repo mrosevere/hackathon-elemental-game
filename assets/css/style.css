@@ -386,6 +386,7 @@ body.light-mode .rules-btn:hover {
 /* Initial locked state: hide/blur content until Play */
 .game-arena:not(.is-active) .arena-grid,
 .game-arena:not(.is-active) .arena-picks,
+.game-arena:not(.is-active) .arena-symbols,
 .game-arena:not(.is-active) .arena-status {
     opacity: 0;
     filter: blur(2px);
@@ -395,6 +396,7 @@ body.light-mode .rules-btn:hover {
 
 .game-arena.is-active .arena-grid,
 .game-arena.is-active .arena-picks,
+.game-arena.is-active .arena-symbols,
 .game-arena.is-active .arena-status {
     opacity: 1;
     filter: none;
@@ -482,6 +484,77 @@ body.light-mode .rules-btn:hover {
 }
 
 .arena-pick.result-tie {
+    animation: arena-result-tie 480ms ease-out 1;
+}
+
+/* Big icon-only display (for extra visual emphasis + future animations) */
+.arena-symbols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
+}
+
+.arena-symbol {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 120px;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.06) 0, rgba(3, 5, 14, 0.98) 70%);
+    --element-accent: var(--accent);
+    transition: transform var(--transition-fast), box-shadow var(--transition-med), filter var(--transition-med), border-color var(--transition-med);
+    will-change: transform;
+}
+
+.arena-symbol--player {
+    border-color: rgba(0, 224, 255, 0.18);
+}
+
+.arena-symbol--cpu {
+    border-color: rgba(255, 204, 102, 0.18);
+}
+
+.arena-symbol__icon {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.65));
+}
+
+@media (max-width: 600px) {
+    .arena-symbol {
+        min-height: 104px;
+    }
+    .arena-symbol__icon {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+.arena-symbol[data-choice="fire"] { --element-accent: var(--danger); }
+.arena-symbol[data-choice="earth"] { --element-accent: var(--accent-contrast); }
+.arena-symbol[data-choice="air"] { --element-accent: var(--neutral); }
+.arena-symbol[data-choice="water"] { --element-accent: var(--accent); }
+.arena-symbol[data-choice="lightning"] { --element-accent: var(--accent); }
+
+.arena-symbol.result-win {
+    --result-scale: 1.04;
+    --result-tilt: 0deg;
+    animation: arena-result-win 650ms ease-out 1;
+    box-shadow: 0 0 0 1px rgba(0, 224, 255, 0.12), 0 16px 34px rgba(0, 0, 0, 0.6);
+    filter: drop-shadow(0 0 12px var(--element-accent));
+}
+
+.arena-symbol.result-lose {
+    --result-shake: 7px;
+    animation: arena-result-lose 520ms ease-out 1;
+    filter: grayscale(0.25) saturate(0.85);
+}
+
+.arena-symbol.result-tie {
     animation: arena-result-tie 480ms ease-out 1;
 }
 
