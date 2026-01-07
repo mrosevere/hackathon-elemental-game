@@ -207,21 +207,32 @@ body.light-mode .rules-btn:hover {
     margin: 16px auto;
     background: radial-gradient(circle at top left, rgba(0, 224, 255, 0.18) 0, rgba(3, 5, 14, 0.98) 52%);
     border-radius: 20px;
-    padding: 18px;
+    padding: 24px;
+    padding-bottom: 80px;
     flex: 1 1 auto;
     min-height: 0;
     position: relative;
 }
 
 .arena-header h3 {
-    margin: 0 0 6px;
+    margin: 0 0 8px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.arena-header p {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
 }
 
 .arena-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 8px;
+    gap: 14px;
+    margin-top: 10px;
     transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
 }
 
@@ -241,12 +252,14 @@ body.light-mode .rules-btn:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 10px;
+    padding: 14px 16px;
     border-radius: 12px;
     border: 1px solid var(--border-subtle);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.08) 0, rgba(3, 5, 14, 0.98) 60%);
     color: var(--text-main);
+    font-size: 1.05rem;
+    font-weight: 600;
     cursor: pointer;
     transition: transform var(--transition-fast), box-shadow var(--transition-med), background var(--transition-med), border-color var(--transition-med), filter var(--transition-med);
     will-change: transform;
@@ -390,13 +403,16 @@ body.light-mode .rules-btn:hover {
 }
 
 .arena-choice img {
-    max-width: 28px;
+    max-width: 36px;
     height: auto;
 }
 
 .arena-status {
-    margin-top: 12px;
-    min-height: 24px;
+    margin-top: 16px;
+    min-height: 28px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
     color: var(--text-muted);
     transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
 }
@@ -442,6 +458,47 @@ body.light-mode .rules-btn:hover {
     text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
 }
 
+.reset-btn {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(160, 168, 192, 0.15);
+    border: 1px solid rgba(160, 168, 192, 0.35);
+    border-radius: 12px;
+    padding: 12px 20px;
+    backdrop-filter: var(--glass-blur);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--transition-med), box-shadow var(--transition-med), transform var(--transition-fast);
+}
+
+.reset-btn:hover {
+    background: rgba(160, 168, 192, 0.25);
+    box-shadow: 0 0 12px rgba(160, 168, 192, 0.4);
+    transform: translateX(-50%) translateY(-1px);
+}
+
+.reset-btn:active {
+    transform: translateX(-50%) translateY(0);
+}
+
+body.light-mode .reset-btn {
+    background: #e9edf5;
+    color: #222;
+    border: 1px solid #bfc8d6;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.light-mode .reset-btn:hover {
+    background: #dce3f0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 6px 16px rgba(0,0,0,0.15);
+}
+
 /* Initial locked state: hide/blur content until Play */
 .game-arena:not(.is-active) .arena-grid,
 .game-arena:not(.is-active) .arena-picks,
@@ -466,8 +523,8 @@ body.light-mode .rules-btn:hover {
 .arena-picks {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 12px;
+    gap: 14px;
+    margin-top: 16px;
     transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
 }
 
@@ -480,13 +537,13 @@ body.light-mode .rules-btn:hover {
 .arena-pick {
     position: relative;
     border-radius: 14px;
-    padding: 10px 12px;
+    padding: 14px 16px;
     border: 1px solid var(--border-subtle);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.06) 0, rgba(3, 5, 14, 0.98) 65%);
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4px;
-    min-height: 54px;
+    gap: 6px;
+    min-height: 64px;
     transition: transform var(--transition-fast), box-shadow var(--transition-med), border-color var(--transition-med), filter var(--transition-med);
     --element-accent: var(--accent);
     will-change: transform;
@@ -502,14 +559,15 @@ body.light-mode .rules-btn:hover {
 .arena-pick__value {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-weight: 800;
+    font-size: 1.1rem;
     color: var(--text-main);
 }
 
 .arena-pick__icon {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
 }
 
@@ -550,8 +608,8 @@ body.light-mode .rules-btn:hover {
 .arena-symbols {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 10px;
+    gap: 14px;
+    margin-top: 14px;
     transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
 }
 

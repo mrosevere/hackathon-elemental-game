@@ -263,7 +263,6 @@ window.determineWinner = determineWinner;
 ========================================================= */
 let playerScore = 0;
 let computerScore = 0;
-
 function updateScore(result) {
 	if (result === "win") {
 		playerScore += 1;
@@ -271,6 +270,15 @@ function updateScore(result) {
 		computerScore += 1;
 	}
 	// Ties don't change either score
+	const scoreEl = document.getElementById("scoreValue");
+	if (scoreEl) scoreEl.textContent = playerScore;
+	const computerScoreEl = document.getElementById("computerScoreValue");
+	if (computerScoreEl) computerScoreEl.textContent = computerScore;
+}
+
+function resetScore() {
+	playerScore = 0;
+	computerScore = 0;
 	const scoreEl = document.getElementById("scoreValue");
 	if (scoreEl) scoreEl.textContent = playerScore;
 	const computerScoreEl = document.getElementById("computerScoreValue");
@@ -474,4 +482,25 @@ document.addEventListener("DOMContentLoaded", () => {
 			updateScore(outcome);
 		});
 	});
+
+	// Reset button functionality
+	const resetBtn = document.getElementById("resetButton");
+	if (resetBtn) {
+		resetBtn.addEventListener("click", () => {
+			// Reset scores
+			resetScore();
+			
+			// Clear choice effects
+			clearChoiceEffects();
+			
+			// Clear pick displays
+			clearPickDisplay();
+			
+			// Reset status message
+			if (statusEl) statusEl.textContent = "Arena ready. Choose your element.";
+			
+			// Focus first choice for accessibility
+			focusFirstChoice();
+		});
+	}
 });
