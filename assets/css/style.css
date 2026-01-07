@@ -207,8 +207,8 @@ body.light-mode .rules-btn:hover {
     margin: clamp(12px, 3vw, 16px) auto;
     background: radial-gradient(circle at top left, rgba(0, 224, 255, 0.18) 0, rgba(3, 5, 14, 0.98) 52%);
     border-radius: clamp(12px, 3vw, 20px);
-    padding: clamp(16px, 4vw, 24px);
-    padding-bottom: clamp(120px, 25vw, 140px);
+    padding: clamp(16px, 4vw, 26px);
+    padding-bottom: clamp(220px, 30vw, 320px);
     flex: 1 1 auto;
     min-height: 0;
     position: relative;
@@ -226,6 +226,12 @@ body.light-mode .rules-btn:hover {
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     font-weight: 600;
     margin: 0;
+}
+
+/* Ensure header controls (mode buttons) sit above the play overlay so they remain clickable */
+.arena-header {
+    position: relative;
+    z-index: 4;
 }
 
 .mode-toggle {
@@ -329,12 +335,12 @@ body.light-mode .mode-btn.is-active {
     }
     
     .game-arena {
-        padding-bottom: 160px;
+        padding-bottom: 300px;
     }
     
     .score-box,
     .score-box-opponent {
-        bottom: 90px;
+        bottom: 140px;
         min-width: 95px;
         padding: 10px 12px;
     }
@@ -535,7 +541,7 @@ body.light-mode .mode-btn.is-active {
 
 .score-box {
     position: absolute;
-    bottom: clamp(60px, 12vw, 70px);
+    bottom: clamp(220px, 26vw, 240px);
     left: clamp(8px, 2vw, 18px);
     background: rgba(0, 224, 255, 0.15);
     border: 1px solid rgba(0, 224, 255, 0.35);
@@ -589,7 +595,8 @@ body.light-mode .mode-btn.is-active {
 
 .round-counter {
     position: absolute;
-    bottom: 70px;
+    /* sit above the arena footer (reset/progress) and below arena status text */
+    top: calc(var(--arena-footer-height, 500px) + 10px);
     left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.1);
@@ -598,6 +605,23 @@ body.light-mode .mode-btn.is-active {
     padding: 8px 16px;
     backdrop-filter: var(--glass-blur);
     text-align: center;
+}
+
+/* Make round counter clearly visible above footer and animate on change */
+.round-counter {
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.round-counter.pulse {
+    animation: round-pulse 520ms cubic-bezier(.2,.9,.2,1) 1;
+}
+
+@keyframes round-pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    30% { transform: translateX(-50%) scale(1.08); }
+    60% { transform: translateX(-50%) scale(0.98); }
+    100% { transform: translateX(-50%) scale(1); }
 }
 
 .round-label {
@@ -618,10 +642,11 @@ body.light-mode .mode-btn.is-active {
 }
 
 .reset-btn {
-    position: absolute;
-    bottom: clamp(8px, 2vw, 16px);
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    z-index: 6;
+    bottom: auto;
+    left: auto;
+    transform: none;
     background: rgba(160, 168, 192, 0.15);
     border: 1px solid rgba(160, 168, 192, 0.35);
     border-radius: clamp(8px, 2vw, 12px);
@@ -705,7 +730,7 @@ body.light-mode .reset-btn:hover {
     display: grid;
     grid-template-columns: 1fr;
     gap: 6px;
-    min-height: 64px;
+    min-height: 56px;
     transition: transform var(--transition-fast), box-shadow var(--transition-med), border-color var(--transition-med), filter var(--transition-med);
     --element-accent: var(--accent);
     will-change: transform;
@@ -779,7 +804,7 @@ body.light-mode .reset-btn:hover {
     position: relative;
     display: grid;
     place-items: center;
-    min-height: 160px;
+    min-height: 120px;
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.06) 0, rgba(3, 5, 14, 0.98) 70%);
@@ -827,8 +852,8 @@ body.light-mode .reset-btn:hover {
 }
 
 .arena-symbol__icon {
-    width: 124px;
-    height: 124px;
+    width: 96px;
+    height: 96px;
     object-fit: contain;
     filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.65));
     transform-origin: center;
@@ -867,7 +892,7 @@ body.light-mode .reset-btn:hover {
     
     .game-arena {
         padding: 12px;
-        padding-bottom: 160px;
+        padding-bottom: 320px;
         margin: 8px auto;
     }
     
@@ -884,7 +909,7 @@ body.light-mode .reset-btn:hover {
     }
     
     .score-box {
-        bottom: 100px;
+        bottom: 150px;
         padding: 8px 10px;
         min-width: 85px;
     }
@@ -933,7 +958,7 @@ body.light-mode .reset-btn:hover {
 @media (max-width: 768px) and (min-width: 481px) {
     .game-arena {
         padding: 14px;
-        padding-bottom: 150px;
+        padding-bottom: 280px;
     }
     
     .mode-btn {
@@ -1199,10 +1224,22 @@ body.light-mode .reset-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at top, rgba(15, 25, 60, 0.70) 0, rgba(3, 4, 10, 0.82) 60%);
+    background: radial-gradient(circle at top, rgba(15, 25, 60, 0.82) 0, rgba(3, 4, 10, 0.9) 60%);
     backdrop-filter: blur(6px);
-    border-radius: 20px;
-    z-index: 2;
+    border-radius: inherit;
+    z-index: 60; /* high enough to cover internal arena controls */
+    pointer-events: auto; /* intercept clicks until dismissed */
+}
+
+/* Ensure the play overlay blocks the entire arena until activated */
+.game-arena:not(.is-active) .arena-overlay {
+    display: flex;
+    pointer-events: auto;
+}
+
+.game-arena.is-active .arena-overlay {
+    display: none;
+    pointer-events: none;
 }
 
 .arena-overlay .overlay-inner {
@@ -1542,6 +1579,159 @@ body.light-mode .reset-btn:hover {
     font-size: clamp(0.75rem, 1.4vw, 0.9rem);
     color: var(--text-muted);
     opacity: 0.95;
+}
+
+/* Badge progress bar */
+.progress-container {
+    margin: clamp(8px, 2vw, 12px) 0;
+    width: 100%;
+    max-width: 720px;
+    display: block;
+}
+.progress-label {
+    font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+    color: var(--text-main);
+    margin-bottom: clamp(6px, 1.5vw, 8px);
+    font-weight: 700;
+}
+.arena-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    /* expose a height variable so other elements can avoid overlapping */
+    --arena-footer-height: 140px;
+    min-height: var(--arena-footer-height);
+    pointer-events: none;
+    z-index: 6;
+}
+
+.arena-footer > * { pointer-events: auto; }
+
+.arena-progress-container {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    display: block;
+    justify-content: center;
+    pointer-events: auto;
+    width: 100%;
+}
+.arena-progress-inner {
+    width: min(920px, 96%);
+    max-width: 920px;
+    pointer-events: auto;
+}
+.arena-progress-label {
+    font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+    color: var(--text-main);
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-align: left;
+}
+.arena-progress-track {
+    position: relative;
+    width: 100%;
+    height: clamp(12px, 1.2vw, 16px);
+    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.03));
+    border-radius: 999px;
+    overflow: visible;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45) inset;
+}
+.arena-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(0,224,255,0.9), rgba(96,239,255,0.7));
+    border-radius: 999px;
+    transition: width 420ms cubic-bezier(.2,.8,.2,1);
+}
+.progress-markers {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -28px;
+    height: 24px;
+    pointer-events: none;
+}
+.progress-markers .marker {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.progress-markers .marker span {
+    background: rgba(0,0,0,0.6);
+    color: var(--text-main);
+    padding: 6px 8px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+    transition: opacity 360ms ease, transform 360ms cubic-bezier(.2,.9,.25,1);
+}
+.progress-markers .marker.visible span {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.progress-medal {
+    position: absolute;
+    right: -6px;
+    top: -18px;
+    font-size: clamp(20px, 3.2vw, 28px);
+    transform: translateX(6px);
+    text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Ensure progress sits above footer elements but below modal overlays */
+.arena-progress-container {
+    z-index: 6;
+}
+
+@media (max-width: 600px) {
+    .arena-progress-label { font-size: 0.72rem; }
+    .progress-markers .marker span { font-size: 0.64rem; padding: 6px 6px; }
+    .progress-medal { font-size: 20px; top: -14px; }
+}
+
+/* Caption below the progress track */
+.arena-progress-caption {
+    margin-top: 8px;
+    text-align: center;
+    color: var(--text-main);
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 700;
+    opacity: 0.95;
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+@media (max-width: 600px) {
+    .arena-progress-caption { font-size: 0.85rem; }
+}
+.progress-track {
+    width: 100%;
+    height: clamp(10px, 1.4vw, 14px);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(0,224,255,0.9), rgba(96,239,255,0.7));
+    transition: width 420ms cubic-bezier(.2,.8,.2,1);
+}
+.progress-track[aria-valuenow="100"] .progress-fill {
+    box-shadow: 0 0 18px rgba(0,224,255,0.45);
 }
 
 .achievement-badge {

@@ -228,7 +228,6 @@
 <!-- GAME ARENA (below rules button, above footer) -->
 <section id="game-arena" class="game-arena">
     <div class="arena-header">
-        <h3>Stormbound</h3>
             <div class="mode-toggle" role="group" aria-label="Select game mode">
                 <button class="mode-btn is-active" data-mode="continuous" aria-pressed="true">Continuous</button>
                 <button class="mode-btn" data-mode="bo3" aria-pressed="false">Best of 3</button>
@@ -292,13 +291,30 @@
         <p class="round-label">Round</p>
         <p class="round-display"><span id="roundValue">0</span></p>
     </div>
-    <button id="resetButton" class="reset-btn">Reset Game</button>
+    <!-- Arena footer: reset button and progress (stacked, non-overlapping) -->
+    <div class="arena-footer">
+        <button id="resetButton" class="reset-btn">Reset Game</button>
+        <div class="arena-progress-container" id="badgeProgress" aria-hidden="true">
+            <div class="arena-progress-inner">
+                <div class="arena-progress-label" id="progressLabel">Progress</div>
+                <div class="arena-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+                    <div class="arena-progress-fill" id="progressFill"></div>
+                    <div class="progress-markers"></div>
+                    <div class="progress-medal" aria-hidden="true">🏅</div>
+                </div>
+                <div class="arena-progress-caption" id="progressCaption" aria-live="polite">Ready</div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- ACHIEVEMENT BADGES -->
 <section class="achievements-section">
     <h3 class="achievements-title">Achievements</h3>
     <p class="achievements-note">Badges persist during this browser tab and will reset when you close the tab.</p>
+
+    <!-- Progress moved into the arena footer for better visibility -->
+
     <div class="achievements-grid">
         <div class="achievement-badge" data-achievement="first-win" title="First Victory – Win any match">
             <div class="badge-icon">🥉</div>
