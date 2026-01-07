@@ -1,59 +1,67 @@
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+const toggle = document.getElementById("themeToggle");
+
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+}
+
+toggle.addEventListener("click", toggleTheme);
+toggle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") toggleTheme();
+});
+
+/* =========================================================
+   MODAL
+========================================================= */
 const modal = document.getElementById("rulesModal");
 const openBtn = document.getElementById("openModal");
 const closeBtn = document.getElementById("closeModal");
 
-const tabs = document.querySelectorAll(".tab");
-const sections = document.querySelectorAll(".content-section");
-const content = document.getElementById("content");
-
-// OPEN MODAL
 let lastFocusedElement = null;
 
 function openModal() {
-  lastFocusedElement = document.activeElement;
-  modal.classList.add("active");
-  // Focus first tab button
-  setTimeout(() => {
-    const firstTab = modal.querySelector(".tab");
-    if (firstTab) firstTab.focus();
-  }, 0);
+    lastFocusedElement = document.activeElement;
+    modal.classList.add("open");
+
+    setTimeout(() => {
+        const firstTab = modal.querySelector(".tab");
+        if (firstTab) firstTab.focus();
+    }, 0);
 }
 
 function closeModal() {
-  modal.classList.remove("active");
-  if (lastFocusedElement) lastFocusedElement.focus();
+    modal.classList.remove("open");
+    if (lastFocusedElement) lastFocusedElement.focus();
 }
 
 openBtn.addEventListener("click", openModal);
-
 closeBtn.addEventListener("click", closeModal);
 
-// CLOSE ON OVERLAY CLICK
 modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
+    if (e.target === modal) closeModal();
 });
 
-// KEYBOARD NAVIGATION
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
 document.addEventListener("keydown", (e) => {
-  if (!modal.classList.contains("active")) return;
+    if (!modal.classList.contains("open")) return;
 
-  // ESC to close modal
-  if (e.key === "Escape") {
-    closeModal();
-    e.preventDefault();
-  }
+    if (e.key === "Escape") {
+        closeModal();
+        e.preventDefault();
+    }
 
-  // Arrow keys to navigate tabs
-  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-    const activeTab = modal.querySelector(".tab.active");
-    const allTabs = Array.from(modal.querySelectorAll(".tab"));
-    const currentIndex = allTabs.indexOf(activeTab);
-    const nextIndex = (currentIndex + 1) % allTabs.length;
-    allTabs[nextIndex].focus();
-    e.preventDefault();
-  }
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        const tabs = Array.from(modal.querySelectorAll(".tab"));
+        const activeTab = modal.querySelector(".tab.active");
+        const index = tabs.indexOf(activeTab);
+        const next = (index + 1) % tabs.length;
+        tabs[next].focus();
+        e.preventDefault();
+    }
 });
 
 // Random selector for the Computer's turn
@@ -72,52 +80,85 @@ function showTab(tabIndex) {
   tabs.forEach(t => t.classList.remove("active"));
   sections.forEach(s => s.classList.remove("active"));
 
-  tabs[tabIndex].classList.add("active");
-  const target = tabs[tabIndex].dataset.content;
-  document.getElementById(target).classList.add("active");
+    tabs[i].classList.add("active");
+    const target = tabs[i].dataset.content;
+    document.getElementById(target).classList.add("active");
 }
 
-tabs.forEach((tab, index) => {
-  tab.addEventListener("click", () => {
-    showTab(index);
-  });
+tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => showTab(i));
 });
 
-// ELEMENTS SUB-SELECTOR
+/* =========================================================
+   ELEMENT SUB-SELECTOR
+========================================================= */
 const elementButtons = document.querySelectorAll(".sub-header");
 const elementItems = document.querySelectorAll(".element-item");
 
 elementButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    elementButtons.forEach(b => {
-      b.classList.remove("active");
-      b.setAttribute("aria-expanded", "false");
-    });
-    elementItems.forEach(item => item.classList.remove("active"));
+    btn.addEventListener("click", () => {
+        elementButtons.forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-expanded", "false");
+        });
 
-    btn.classList.add("active");
-    btn.setAttribute("aria-expanded", "true");
-    const elementId = btn.dataset.element;
-    document.getElementById(elementId).classList.add("active");
-  });
+        elementItems.forEach(item => item.classList.remove("active"));
+
+        btn.classList.add("active");
+        btn.setAttribute("aria-expanded", "true");
+
+        const id = btn.dataset.element;
+        document.getElementById(id).classList.add("active");
+    });
 });
 
-(() => {
-	const relationships = {
-		lightning: { beats: ["water", "air"], losesTo: ["earth", "fire"] },
-		fire: { beats: ["air", "earth"], losesTo: ["water", "lightning"] },
-		air: { beats: ["earth", "water"], losesTo: ["fire", "lightning"] },
-		earth: { beats: ["lightning", "water"], losesTo: ["air", "fire"] },
-		water: { beats: ["fire", "lightning"], losesTo: ["air", "earth"] },
-	};
+const ELEMENT_RELATIONSHIPS = {
+	lightning: { beats: ["water", "air"], losesTo: ["earth", "fire"] },
+	fire: { beats: ["air", "earth"], losesTo: ["water", "lightning"] },
+	air: { beats: ["earth", "water"], losesTo: ["fire", "lightning"] },
+	earth: { beats: ["lightning", "water"], losesTo: ["air", "fire"] },
+	water: { beats: ["fire", "lightning"], losesTo: ["air", "earth"] },
+};
 
-	const displayNames = {
-		lightning: "Lightning",
-		fire: "Fire",
-		air: "Air",
-		earth: "Earth",
-		water: "Water",
-	};
+const ELEMENT_DISPLAY_NAMES = {
+	lightning: "Lightning",
+	fire: "Fire",
+	air: "Air",
+	earth: "Earth",
+	water: "Water",
+};
+
+function normalizeElementChoice(choice) {
+	if (typeof choice !== "string") return "";
+	return choice.trim().toLowerCase();
+}
+
+function determineWinner(playerChoice, opponentChoice) {
+	const player = normalizeElementChoice(playerChoice);
+	const opponent = normalizeElementChoice(opponentChoice);
+
+	if (!(player in ELEMENT_RELATIONSHIPS)) {
+		throw new TypeError(
+			`Invalid playerChoice: ${String(playerChoice)}. Valid choices: ${Object.keys(ELEMENT_RELATIONSHIPS).join(", ")}`
+		);
+	}
+	if (!(opponent in ELEMENT_RELATIONSHIPS)) {
+		throw new TypeError(
+			`Invalid opponentChoice: ${String(opponentChoice)}. Valid choices: ${Object.keys(ELEMENT_RELATIONSHIPS).join(", ")}`
+		);
+	}
+
+	if (player === opponent) return "tie";
+	if (ELEMENT_RELATIONSHIPS[player].beats.includes(opponent)) return "win";
+	return "lose";
+}
+
+// Optional: make the function callable from HTML inline handlers / other scripts.
+window.determineWinner = determineWinner;
+
+(() => {
+	const relationships = ELEMENT_RELATIONSHIPS;
+	const displayNames = ELEMENT_DISPLAY_NAMES;
 
 	function formatList(keys) {
 		return keys.map((k) => displayNames[k] ?? k).join(", ");
