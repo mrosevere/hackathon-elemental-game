@@ -305,10 +305,8 @@ function updateScore(result) {
 	if (scoreEl) scoreEl.textContent = playerScore;
 	const computerScoreEl = document.getElementById("computerScoreValue");
 	if (computerScoreEl) computerScoreEl.textContent = computerScore;
-	const playerRoundEl = document.getElementById("playerRoundValue");
-	if (playerRoundEl) playerRoundEl.textContent = totalRounds;
-	const computerRoundEl = document.getElementById("computerRoundValue");
-	if (computerRoundEl) computerRoundEl.textContent = totalRounds;
+	const roundEl = document.getElementById("roundValue");
+	if (roundEl) roundEl.textContent = totalRounds;
 }
 
 function resetScore() {
@@ -320,10 +318,8 @@ function resetScore() {
 	if (scoreEl) scoreEl.textContent = playerScore;
 	const computerScoreEl = document.getElementById("computerScoreValue");
 	if (computerScoreEl) computerScoreEl.textContent = computerScore;
-	const playerRoundEl = document.getElementById("playerRoundValue");
-	if (playerRoundEl) playerRoundEl.textContent = totalRounds;
-	const computerRoundEl = document.getElementById("computerRoundValue");
-	if (computerRoundEl) computerRoundEl.textContent = totalRounds;
+	const roundEl = document.getElementById("roundValue");
+	if (roundEl) roundEl.textContent = totalRounds;
 }
 
 /* =========================================================
