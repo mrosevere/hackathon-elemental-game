@@ -19,6 +19,11 @@ const modal = document.getElementById("rulesModal");
 const openBtn = document.getElementById("openModal");
 const closeBtn = document.getElementById("closeModal");
 
+const resultModal = document.getElementById("resultModal");
+const closeResultBtn = document.getElementById("closeResultModal");
+const resultMessage = document.getElementById("resultMessage");
+const resultSubtext = document.getElementById("resultSubtext");
+
 let lastFocusedElement = null;
 
 function openModal() {
@@ -42,6 +47,41 @@ closeBtn.addEventListener("click", closeModal);
 modal.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
 });
+
+function openResultModal(playerWon, modeName) {
+    if (!resultModal || !resultMessage || !resultSubtext) return;
+    
+    const modalContent = resultModal.querySelector('.result-modal-content');
+    if (modalContent) {
+        modalContent.classList.remove('player-won', 'player-lost');
+        modalContent.classList.add(playerWon ? 'player-won' : 'player-lost');
+    }
+    
+    resultMessage.textContent = playerWon ? "You Won!" : "Try Again";
+    resultSubtext.textContent = playerWon 
+        ? `Congratulations! You won the ${modeName}!`
+        : `The computer won the ${modeName}. Better luck next time!`;
+    
+    resultModal.classList.add("open");
+    
+    setTimeout(() => {
+        if (closeResultBtn) closeResultBtn.focus();
+    }, 100);
+}
+
+function closeResultModal() {
+    if (resultModal) resultModal.classList.remove("open");
+}
+
+if (closeResultBtn) {
+    closeResultBtn.addEventListener("click", closeResultModal);
+}
+
+if (resultModal) {
+    resultModal.addEventListener("click", (e) => {
+        if (e.target === resultModal) closeResultModal();
+    });
+}
 
 /* =========================================================
    KEYBOARD NAVIGATION
@@ -291,24 +331,79 @@ window.determineWinner = determineWinner;
 let playerScore = 0;
 let computerScore = 0;
 let totalRounds = 0;
+
+/* =========================================================
+   ACHIEVEMENT TRACKING
+========================================================= */
+const ACHIEVEMENTS = {
+	'first-win': false,
+	'bo3': false,
+	'bo5': false,
+	'bo9': false
+};
+
+function loadAchievements() {
+	const saved = localStorage.getItem('stormbound-achievements');
+	if (saved) {
+		try {
+			const parsed = JSON.parse(saved);
+			Object.assign(ACHIEVEMENTS, parsed);
+		} catch (e) {
+			console.error('Failed to load achievements:', e);
+		}
+	}
+	updateAchievementBadges();
+}
+
+function saveAchievements() {
+	localStorage.setItem('stormbound-achievements', JSON.stringify(ACHIEVEMENTS));
+}
+
+function unlockAchievement(achievementKey) {
+	if (ACHIEVEMENTS[achievementKey]) return; // Already unlocked
+	ACHIEVEMENTS[achievementKey] = true;
+	saveAchievements();
+	updateAchievementBadges();
+}
+
+function updateAchievementBadges() {
+	const badges = document.querySelectorAll('.achievement-badge');
+	badges.forEach(badge => {
+		const achievement = badge.dataset.achievement;
+		if (ACHIEVEMENTS[achievement]) {
+			badge.classList.add('unlocked');
+		} else {
+			badge.classList.remove('unlocked');
+		}
+	});
+}
+
+// Load achievements on page load
+document.addEventListener('DOMContentLoaded', loadAchievements);
+
 function updateScore(result) {
 	if (!seriesActive && targetWins !== null) return;
 	if (result === "win") {
 		playerScore += 1;
 		totalRounds += 1;
+		// Unlock first win achievement
+		unlockAchievement('first-win');
 	} else if (result === "lose") {
 		computerScore += 1;
 		totalRounds += 1;
+	} else if (result === "tie") {
+		// Ties should count as rounds played
+		totalRounds += 1;
 	}
-	// Ties don't change either score
 	const scoreEl = document.getElementById("scoreValue");
 	if (scoreEl) scoreEl.textContent = playerScore;
 	const computerScoreEl = document.getElementById("computerScoreValue");
 	if (computerScoreEl) computerScoreEl.textContent = computerScore;
+	// Round displays show individual win counts per player
 	const playerRoundEl = document.getElementById("playerRoundValue");
-	if (playerRoundEl) playerRoundEl.textContent = totalRounds;
+	if (playerRoundEl) playerRoundEl.textContent = playerScore;
 	const computerRoundEl = document.getElementById("computerRoundValue");
-	if (computerRoundEl) computerRoundEl.textContent = totalRounds;
+	if (computerRoundEl) computerRoundEl.textContent = computerScore;
 }
 
 function resetScore() {
@@ -320,10 +415,8 @@ function resetScore() {
 	if (scoreEl) scoreEl.textContent = playerScore;
 	const computerScoreEl = document.getElementById("computerScoreValue");
 	if (computerScoreEl) computerScoreEl.textContent = computerScore;
-	const playerRoundEl = document.getElementById("playerRoundValue");
-	if (playerRoundEl) playerRoundEl.textContent = totalRounds;
-	const computerRoundEl = document.getElementById("computerRoundValue");
-	if (computerRoundEl) computerRoundEl.textContent = totalRounds;
+	const roundEl = document.getElementById("roundValue");
+	if (roundEl) roundEl.textContent = totalRounds;
 }
 
 /* =========================================================
@@ -439,15 +532,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		arena.classList.toggle("is-active", !!enabled);
 		if (statusEl) statusEl.textContent = enabled
 			? "Arena ready. Choose your element."
-			: "Press Play to start the battle.";
+			: "Select a game mode to begin.";
 		if (!enabled) clearPickDisplay();
 	}
 
 	function setModeStatusMessage(config) {
 		if (!statusEl) return;
 		statusEl.textContent = config.targetWins
-			? `${config.label}: first to ${config.targetWins} wins. Press Play to start.`
-			: "Continuous play: press Play to start.";
+			? `${config.label}: first to ${config.targetWins} wins. Choose your element to start.`
+			: "Continuous play: choose your element to start.";
 	}
 
 	function updateModeUI(activeMode) {
@@ -468,12 +561,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		resetScore();
 		seriesActive = true;
 		updateModeUI(gameMode);
-		const wasActive = arena.classList.contains("is-active");
-		if (!preserveActive || !wasActive) {
-			setArenaEnabled(false);
-		} else {
-			setArenaEnabled(true);
-		}
+		// Always activate arena when mode is selected
+		setArenaEnabled(true);
 		setModeStatusMessage(config);
 	}
 
@@ -493,10 +582,22 @@ document.addEventListener("DOMContentLoaded", () => {
 				? `You win the ${label}! Press Reset or pick another mode to play again.`
 				: `Computer wins the ${label}. Press Reset or pick another mode to play again.`;
 		}
+		
+		// Unlock achievement if player won
+		if (winner === "player") {
+			if (gameMode === "bo3") unlockAchievement('bo3');
+			else if (gameMode === "bo5") unlockAchievement('bo5');
+			else if (gameMode === "bo9") unlockAchievement('bo9');
+		}
+		
+		// Show result modal with a slight delay for better UX
+		setTimeout(() => {
+			openResultModal(winner === "player", label);
+		}, 800);
 	}
 
-	// Initially disabled until Play is clicked.
-	setArenaEnabled(false);
+	// Initially active with default mode
+	setArenaEnabled(true);
 	updateModeUI(gameMode);
 	setModeStatusMessage(MODE_CONFIG[gameMode]);
 
@@ -522,9 +623,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	modeButtons.forEach((btn) => {
 		btn.addEventListener("click", () => {
 			// When switching modes, clear any existing choice/result visuals
-			// and reset the series, requiring Play to be clicked again.
+			// and reset the series, arena stays active
 			clearChoiceEffects();
-			setMode(btn.dataset.mode, { preserveActive: false });
+			setMode(btn.dataset.mode);
 		});
 	});
 
@@ -636,8 +737,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			// Clear pick displays
 			clearPickDisplay();
 			
-			// Reset arena state to require a new Play press
-			setArenaEnabled(false);
+			// Keep arena active
+			setArenaEnabled(true);
 			setModeStatusMessage(MODE_CONFIG[gameMode]);
 		});
 	}
