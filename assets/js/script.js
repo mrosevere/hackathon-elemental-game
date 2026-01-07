@@ -514,7 +514,7 @@ function updateBadgeProgress(mode) {
 	if (!progressContainer || !progressBar || !progressFill || !progressLabel) return;
 	const config = MODE_CONFIG[mode] ?? MODE_CONFIG.continuous;
 	let key = null;
-	let target = config.targetWins;
+	let target;
 	let numMarkers = 0;
 	let displayValue = 0;
 	let labelText = '';
