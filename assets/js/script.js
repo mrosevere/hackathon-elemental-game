@@ -393,7 +393,25 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	function updatePickDisplay(side, choiceKey) {
+	function setIconWithFallback(iconEl, preferredSrc, fallbackSrc, altText) {
+		if (!iconEl) return;
+		iconEl.hidden = false;
+		iconEl.alt = altText;
+		iconEl.onerror = null;
+		iconEl.onerror = () => {
+			iconEl.onerror = null;
+			iconEl.src = fallbackSrc;
+		};
+		iconEl.src = preferredSrc;
+	}
+
+	function getElementIconSrc(choiceKey, { isWinVariant }) {
+		return isWinVariant
+			? `assets/images/${choiceKey}win.png`
+			: `assets/images/${choiceKey}.png`;
+	}
+
+	function updatePickDisplay(side, choiceKey, { isWinner } = { isWinner: false }) {
 		const pickEl = side === "player" ? playerPickEl : cpuPickEl;
 		const iconEl = side === "player" ? playerPickIcon : cpuPickIcon;
 		const textEl = side === "player" ? playerPickText : cpuPickText;
@@ -401,22 +419,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (pickEl) pickEl.dataset.choice = choiceKey;
 		if (textEl) textEl.textContent = name(choiceKey);
 
-		if (iconEl) {
-			iconEl.hidden = false;
-			iconEl.src = `assets/images/${choiceKey}.png`;
-			iconEl.alt = name(choiceKey);
-		}
+		const fallbackSrc = getElementIconSrc(choiceKey, { isWinVariant: false });
+		const preferredSrc = getElementIconSrc(choiceKey, { isWinVariant: !!isWinner });
+		setIconWithFallback(iconEl, preferredSrc, fallbackSrc, name(choiceKey));
 	}
 
-	function updateSymbolDisplay(side, choiceKey) {
+	function updateSymbolDisplay(side, choiceKey, { isWinner } = { isWinner: false }) {
 		const symbolEl = side === "player" ? playerSymbolEl : cpuSymbolEl;
 		const iconEl = side === "player" ? playerSymbolIcon : cpuSymbolIcon;
 		if (symbolEl) symbolEl.dataset.choice = choiceKey;
-		if (iconEl) {
-			iconEl.hidden = false;
-			iconEl.src = `assets/images/${choiceKey}.png`;
-			iconEl.alt = name(choiceKey);
-		}
+		const fallbackSrc = getElementIconSrc(choiceKey, { isWinVariant: false });
+		const preferredSrc = getElementIconSrc(choiceKey, { isWinVariant: !!isWinner });
+		setIconWithFallback(iconEl, preferredSrc, fallbackSrc, name(choiceKey));
 	}
 
 	function setArenaEnabled(enabled) {
@@ -553,16 +567,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			const player = btn.dataset.choice;
 			const opponent = getComputerChoice();
 			const outcome = determineWinner(player, opponent);
+			const playerWon = outcome === "win";
+			const cpuWon = outcome === "lose";
 
 			clearChoiceEffects();
 			const opponentBtn = findChoiceButton(opponent);
 
 			btn.classList.add("is-player");
 			if (opponentBtn) opponentBtn.classList.add("is-opponent");
-			updatePickDisplay("player", player);
-			updatePickDisplay("cpu", opponent);
-			updateSymbolDisplay("player", player);
-			updateSymbolDisplay("cpu", opponent);
+			updatePickDisplay("player", player, { isWinner: playerWon });
+			updatePickDisplay("cpu", opponent, { isWinner: cpuWon });
+			updateSymbolDisplay("player", player, { isWinner: playerWon });
+			updateSymbolDisplay("cpu", opponent, { isWinner: cpuWon });
 
 			if (outcome === "tie") {
 				restartResultAnimation(btn, "result-tie");
