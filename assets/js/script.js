@@ -54,20 +54,20 @@ if (modal) {
 
 function openResultModal(playerWon, modeName) {
     if (!resultModal || !resultMessage || !resultSubtext) return;
-    
+
     const modalContent = resultModal.querySelector('.result-modal-content');
     if (modalContent) {
         modalContent.classList.remove('player-won', 'player-lost');
         modalContent.classList.add(playerWon ? 'player-won' : 'player-lost');
     }
-    
+
     resultMessage.textContent = playerWon ? "You Won!" : "Try Again";
-    resultSubtext.textContent = playerWon 
+    resultSubtext.textContent = playerWon
         ? `Congratulations! You won the ${modeName}!`
         : `The computer won the ${modeName}. Better luck next time!`;
-    
+
     resultModal.classList.add("open");
-    
+
     setTimeout(() => {
         if (closeResultBtn) closeResultBtn.focus();
     }, 100);
@@ -226,13 +226,13 @@ function normalizeElementChoice(choice) {
 // Random selector for the Computer's turn
 function getComputerChoice() {
     const choices = ['Fire', 'Earth', 'Water', 'Air', 'Lightning'];
-    
+
     // Generate a random index between 0 and 4
     const randomIndex = Math.floor(Math.random() * choices.length);
 
 	// Get the randomly selected choice
     const selectedChoice = choices[randomIndex];
-    
+
     // Normalize and return the choice
     return normalizeElementChoice(selectedChoice);
 }
@@ -320,7 +320,6 @@ window.determineWinner = determineWinner;
 				const loseIcon = iconByKey.get(loseKey);
 				if (loseIcon) loseIcon.classList.add("relation-loses");
 			}
-
 
 			tooltipEl.textContent =
 				`${displayNames[key] ?? key}\n` +
@@ -818,14 +817,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				? `You win the ${label}! Press Reset or pick another mode to play again.`
 				: `Computer wins the ${label}. Press Reset or pick another mode to play again.`;
 		}
-		
+
 		// Unlock achievement if player won
 		if (winner === "player") {
 			if (gameMode === "bo3") unlockAchievement('bo3');
 			else if (gameMode === "bo5") unlockAchievement('bo5');
 			else if (gameMode === "bo9") unlockAchievement('bo9');
 		}
-		
+
 		// Request auto-reset once the user dismisses the result modal
 		pendingAutoReset = true;
 
@@ -844,7 +843,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		const firstChoice = arena.querySelector(".arena-choice");
 		if (firstChoice) firstChoice.focus();
 	}
-
 
 	// Initialize progress display on load (function defined in global scope)
 	document.addEventListener('DOMContentLoaded', () => {
@@ -1004,13 +1002,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		resetBtn.addEventListener("click", () => {
 			// Reset scores
 			resetScore();
-			
+
 			// Clear choice effects
 			clearChoiceEffects();
-			
+
 			// Clear pick displays
 			clearPickDisplay();
-			
+
 			// Show play overlay again
 			setArenaEnabled(false);
 			setModeStatusMessage(MODE_CONFIG[gameMode]);

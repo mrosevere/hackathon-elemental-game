@@ -3,13 +3,11 @@ Issue #
 
 ## 🧪 What has been done?
 
-
-
 ## 🧠 How to test this PR
 Steps for reviewers to test the feature:
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## ✔️ Checklist
 - [ ] My code follows the project’s style guidelines
