@@ -22,6 +22,7 @@
     --transition-fast: 150ms ease-out;
     --transition-med: 220ms ease-out;
     --glass-blur: blur(18px);
+    --arena-footer-height: 140px;
 }
 
 body.page-wrapper {
@@ -1635,8 +1636,6 @@ body.light-mode .reset-btn:hover {
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    /* expose a height variable so other elements can avoid overlapping */
-    --arena-footer-height: 140px;
     min-height: var(--arena-footer-height);
     pointer-events: none;
     z-index: 6;
