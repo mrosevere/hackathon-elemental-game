@@ -259,6 +259,25 @@ window.determineWinner = determineWinner;
 })();
 
 /* =========================================================
+   SCORE TRACKING
+========================================================= */
+let playerScore = 0;
+let computerScore = 0;
+
+function updateScore(result) {
+	if (result === "win") {
+		playerScore += 1;
+	} else if (result === "lose") {
+		computerScore += 1;
+	}
+	// Ties don't change either score
+	const scoreEl = document.getElementById("scoreValue");
+	if (scoreEl) scoreEl.textContent = playerScore;
+	const computerScoreEl = document.getElementById("computerScoreValue");
+	if (computerScoreEl) computerScoreEl.textContent = computerScore;
+}
+
+/* =========================================================
    ARENA INITIALIZATION WITH LOCAL OVERLAY
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
@@ -310,6 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			const outcome = determineWinner(player, opponent);
 			const name = (k) => ELEMENT_DISPLAY_NAMES[k] || k;
 			if (statusEl) statusEl.textContent = `You chose ${name(player)}. Computer chose ${name(opponent)}. Result: ${outcome.toUpperCase()}.`;
+			updateScore(outcome);
 		});
 	});
 });

@@ -261,6 +261,47 @@ body.light-mode .rules-btn:hover {
     transition: opacity var(--transition-med), filter var(--transition-med), transform var(--transition-med);
 }
 
+.score-box {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    background: rgba(0, 224, 255, 0.15);
+    border: 1px solid rgba(0, 224, 255, 0.35);
+    border-radius: 12px;
+    padding: 12px 16px;
+    backdrop-filter: var(--glass-blur);
+    min-width: 80px;
+}
+
+.score-box-opponent {
+    left: auto;
+    right: 18px;
+    background: rgba(255, 75, 110, 0.15);
+    border-color: rgba(255, 75, 110, 0.35);
+}
+
+.score-box-opponent .score-value {
+    color: var(--danger);
+    text-shadow: 0 0 8px rgba(255, 75, 110, 0.6);
+}
+
+.score-label {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.score-value {
+    margin: 4px 0 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
+}
+
 /* Initial locked state: hide/blur content until Play */
 .game-arena:not(.is-active) .arena-grid,
 .game-arena:not(.is-active) .arena-status {
