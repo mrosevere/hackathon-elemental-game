@@ -485,7 +485,8 @@ body.light-mode .reset-btn:hover {
 .game-arena:not(.is-active) .arena-grid,
 .game-arena:not(.is-active) .arena-picks,
 .game-arena:not(.is-active) .arena-symbols,
-.game-arena:not(.is-active) .arena-status {
+.game-arena:not(.is-active) .arena-status,
+.game-arena:not(.is-active) .reset-btn {
     opacity: 0;
     filter: blur(2px);
     transform: scale(0.98);
@@ -495,7 +496,8 @@ body.light-mode .reset-btn:hover {
 .game-arena.is-active .arena-grid,
 .game-arena.is-active .arena-picks,
 .game-arena.is-active .arena-symbols,
-.game-arena.is-active .arena-status {
+.game-arena.is-active .arena-status,
+.game-arena.is-active .reset-btn {
     opacity: 1;
     filter: none;
     transform: none;
