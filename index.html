@@ -5,59 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stormbound - Battle of the Elements</title>
 
-    <!-- Font Awesome for social icons -->
+    <meta name="description" content="Stormbound: A Battle of the Elements — a strategic elemental game inspired by Rock-Paper-Scissors.">
+    <meta name="keywords" content="stormbound, elements, game, fire, water, air, earth, lightning">
+
+    <link rel="icon" href="assets/images/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- External CSS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Nunito+Sans:wght@200;400;600;800&display=swap');
+    </style>
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body class="page-wrapper">
 
-    <!-- Light/Dark Mode Toggle (top right) -->
-    <div id="themeToggle" class="toggle-switch" role="button" tabindex="0">
-        <div class="toggle-circle"></div>
+<img src="assets/images/logo.png" alt="Game Logo" class="site-logo">
+
+<!-- Light Mode Toggle -->
+<div id="themeToggle" class="toggle-switch" role="button" tabindex="0">
+    <div class="toggle-circle"></div>
+</div>
+
+<!-- Rules Button -->
+<button id="openModal" class="rules-btn"><strong>Rules</strong></button>
+
+<header class="site-header">
+    <h1>Stormbound</h1>
+    <h2>Battle Of The Elements</h2>
+</header>
+
+<main class="site-main">
+
+    <!-- MODAL -->
+    <div class="modal" id="rulesModal">
+        <div class="modal-content">
+
+            <button class="close-btn" id="closeModal">&times;</button>
+
+            <div class="accordion">
+
+                <!-- LEFT TABS -->
+                <div class="accordion-tabs">
+                    <button class="tab active" data-content="rules">Rules</button>
+                    <button class="tab" data-content="elements">Elements</button>
+                    <button class="tab" data-content="scoring">Scoring</button>
+                </div>
+
+                <!-- RIGHT CONTENT -->
+                <div class="accordion-content">
+
+                    <div class="content-section active" id="rules">
+                        <h2>Rules</h2>
+                        <p>
+                            Stormbound: A Battle of the Elements is a modern take on Rock, Paper, Scissors.<br>
+                            Choose from:
+                            Water <img src="assets/images/water.png" alt="Water">,
+                            Fire <img src="assets/images/fire.png" alt="Fire">,
+                            Earth <img src="assets/images/earth.png" alt="Earth">,
+                            Air <img src="assets/images/air.png" alt="Air">,
+                            Lightning <img src="assets/images/lightning.png" alt="Lightning">.<br>
+                            After your choice, the computer selects its element after a countdown.
+                        </p>
+                    </div>
+
+                    <div class="content-section" id="elements">
+                        <div class="elements-container">
+
+                            <div class="elements-tabs">
+                                <h2>Elements</h2>
+                                <p>The winner is determined based on the following rules:</p>
+
+                                <button class="sub-header active" data-element="water" aria-expanded="true">Water <img src="assets/images/water.png"></button>
+                                <button class="sub-header" data-element="fire" aria-expanded="false">Fire <img src="assets/images/fire.png"></button>
+                                <button class="sub-header" data-element="earth" aria-expanded="false">Earth <img src="assets/images/earth.png"></button>
+                                <button class="sub-header" data-element="air" aria-expanded="false">Air <img src="assets/images/air.png"></button>
+                                <button class="sub-header" data-element="lightning" aria-expanded="false">Lightning <img src="assets/images/lightning.png"></button>
+                            </div>
+
+                            <div class="elements-content">
+                                <div class="element-item active" id="water">
+                                    <p><strong>BEATS</strong> Fire, Lightning<br>
+                                    <strong>LOSES TO</strong> Air, Earth</p>
+                                </div>
+
+                                <div class="element-item" id="fire">
+                                    <p><strong>BEATS</strong> Air, Earth<br>
+                                    <strong>LOSES TO</strong> Water, Lightning</p>
+                                </div>
+
+                                <div class="element-item" id="earth">
+                                    <p><strong>BEATS</strong> Lightning, Water<br>
+                                    <strong>LOSES TO</strong> Air, Fire</p>
+                                </div>
+
+                                <div class="element-item" id="air">
+                                    <p><strong>BEATS</strong> Earth, Water<br>
+                                    <strong>LOSES TO</strong> Fire, Lightning</p>
+                                </div>
+
+                                <div class="element-item" id="lightning">
+                                    <p><strong>BEATS</strong> Water, Air<br>
+                                    <strong>LOSES TO</strong> Earth, Fire</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-section" id="scoring">
+                        <h2>Scoring and Progress</h2>
+                        <p>
+                            Earn points by beating the computer.<br>
+                            Reach 5 wins → Trophy 1<br>
+                            Reach 10 wins → Trophy 2<br>
+                            Try Hard Mode for a challenge.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
-    <header class="site-header">
-        <h1>Stormbound</h1>
-        <h2>Battle Of The Elements</h2>
-    </header>
+    <!-- ELEMENT ICON NAVIGATION -->
+    <nav class="element-icons" aria-label="Element win/loss chart">
+        <img class="element-icon" src="assets/images/lightning.png" alt="Lightning" data-element="lightning">
+        <img class="element-icon" src="assets/images/fire.png" alt="Fire" data-element="fire">
+        <img class="element-icon" src="assets/images/air.png" alt="Air" data-element="air">
+        <img class="element-icon" src="assets/images/earth.png" alt="Earth" data-element="earth">
+        <img class="element-icon" src="assets/images/water.png" alt="Water" data-element="water">
+    </nav>
 
-    <main class="site-main">
-        <p style="text-align:center;">Game area placeholder</p>
-    </main>
+    <div id="element-tooltip" class="element-tooltip" role="status" aria-live="polite" hidden></div>
 
-    <footer class="site-footer">
+</main>
 
-        <!-- LEFT -->
-        <div class="footer-left">
-            <img src="assets/images/logo.png" alt="Game Logo" class="footer-logo">
-            <p>© 2026 Stormbound - Battle of the Elements</p>
-        </div>
+<footer class="site-footer">
+    <div class="footer-left">
+        <p>© 2026 Stormbound - Battle of the Elements</p>
+    </div>
 
-        <!-- CENTER -->
-        <div class="footer-center">
-            <p class="dev-title">Developers:</p>
-            <p class="credits">Abdalla • Andre • Mark • Mohammad • Nathalie</p>
-        </div>
+    <div class="footer-center">
+        <p class="dev-title">Developers:</p>
+        <p class="credits">Abdalla • André • Mark • Mohammad • Nathalie</p>
+    </div>
 
-        <!-- RIGHT -->
-        <div class="footer-right">
-            <a href="https://www.facebook.com" aria-label="Facebook">
-                <i class="fab fa-facebook fa-2x"></i>
-            </a>
-            <a href="https://www.twitter.com" aria-label="Twitter">
-                <i class="fab fa-x-twitter fa-2x"></i>
-            </a>
-            <a href="https://www.instagram.com" aria-label="Instagram">
-                <i class="fab fa-instagram fa-2x"></i>
-            </a>
-        </div>
+    <div class="footer-right">
+        <a href="https://www.facebook.com"><i class="fab fa-facebook fa-2x"></i></a>
+        <a href="https://www.twitter.com"><i class="fab fa-x-twitter fa-2x"></i></a>
+        <a href="https://www.instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
+    </div>
+</footer>
 
-    </footer>
+<script src="assets/js/script.js"></script>
 
-    <!-- JavaScript -->
-    <script src="assets/js/script.js"></script>
 </body>
 </html>
