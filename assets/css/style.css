@@ -1925,8 +1925,8 @@ body.light-mode .accordion-close:hover {
 /* ========== NEW: CENTER "DEVELOPERS:" TEXT ========== */
 .footer-center {
     text-align: center;
-    position: relative;   /* ADDED */
-    z-index: 2;           /* ADDED */
+    position: relative;
+    z-index: 2;
 }
 
 /* Remove link styling from developer names */
@@ -1937,8 +1937,13 @@ body.light-mode .accordion-close:hover {
 
 /* ========== NEW: SOCIAL ICON BRAND COLORS ========== */
 .footer-right {
-    position: relative;   /* ADDED */
-    z-index: 1;           /* ADDED */
+    position: relative;
+    z-index: 1;
+}
+
+/* Remove underline from social icons */
+.footer-right a {
+    text-decoration: none !important;
 }
 
 .footer-right a i {
