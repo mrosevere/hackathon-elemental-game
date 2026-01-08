@@ -1925,9 +1925,22 @@ body.light-mode .accordion-close:hover {
 /* ========== NEW: CENTER "DEVELOPERS:" TEXT ========== */
 .footer-center {
     text-align: center;
+    position: relative;   /* ADDED */
+    z-index: 2;           /* ADDED */
+}
+
+/* Remove link styling from developer names */
+.footer-center .credits a {
+    text-decoration: none;
+    color: inherit;
 }
 
 /* ========== NEW: SOCIAL ICON BRAND COLORS ========== */
+.footer-right {
+    position: relative;   /* ADDED */
+    z-index: 1;           /* ADDED */
+}
+
 .footer-right a i {
     color: inherit;
 }
@@ -1936,8 +1949,9 @@ body.light-mode .accordion-close:hover {
     color: #1877F2;
 }
 
-.footer-right .fa-x-twitter {
-    color: #000000;
+/* Updated to classic Twitter bird */
+.footer-right .fa-twitter {
+    color: #1DA1F2;
 }
 
 .footer-right .fa-instagram {
@@ -2022,7 +2036,6 @@ body.light-mode .game-arena {
 }
 
 body.light-mode .arena-overlay {
-    /* Keep a dimming layer in light mode while matching overall theme */
     background: rgba(0, 0, 0, 0.35);
 }
 
