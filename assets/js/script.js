@@ -484,7 +484,7 @@ function unlockAchievement(achievementKey) {
 	// When a badge is met, show a non-blocking toast for the first-win badge
 	// (do NOT interrupt gameplay for this particular badge)
 	if (achievementKey === 'first-win') {
-		try { showAchievementToast('First Badge Unlocked! You won your first game.', 0); } catch (e) { console.error(e); }
+		try { showAchievementToast('First Badge Unlocked: You won your first game.', 0); } catch (e) { console.error(e); }
 		// do not schedule an auto-reset for first-win so gameplay continues uninterrupted
 	}
 }
