@@ -1959,3 +1959,28 @@ body.light-mode .arena-choice:hover {
     border-color: #4a8cff;
     background: #e4edff;
 }
+
+body.light-mode .arena-pick {
+    background: #f5f7ff;
+    color: #222;
+    border: 1px solid #d0d7e2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .arena-pick__label {
+    color: #555;
+}
+
+body.light-mode .arena-pick__value {
+    color: #222;
+}
+
+body.light-mode .arena-symbol {
+    background: #f5f7ff;
+    border: 1px solid #d0d7e2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .arena-symbol__icon {
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
+}
