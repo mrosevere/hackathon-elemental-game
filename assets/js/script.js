@@ -604,19 +604,13 @@ function showAchievementToast(message, duration = 3500) {
 	}
 }
 
-// Remove achievement toast and its overlay (if present)
+// Remove achievement toast (but keep the overlay as it's a shared container)
 function removeAchievementToast() {
 	try {
 		const toast = document.getElementById('achievement-toast');
 		if (toast) toast.remove();
 	} catch (e) {
 		console.error('removeAchievementToast: failed to remove toast', e);
-	}
-	try {
-		const overlay = document.getElementById('achievement-toast-overlay');
-		if (overlay) overlay.remove();
-	} catch (e) {
-		console.error('removeAchievementToast: failed to remove overlay', e);
 	}
 }
 
