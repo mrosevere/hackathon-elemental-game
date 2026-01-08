@@ -459,7 +459,7 @@ function scheduleAutoReset() {
 }
 
 function loadAchievements() {
-	const saved = localStorage.getItem('stormbound-achievements');
+	const saved = sessionStorage.getItem('stormbound-achievements');
 	if (saved) {
 		try {
 			const parsed = JSON.parse(saved);
@@ -472,7 +472,7 @@ function loadAchievements() {
 }
 
 function saveAchievements() {
-	localStorage.setItem('stormbound-achievements', JSON.stringify(ACHIEVEMENTS));
+	sessionStorage.setItem('stormbound-achievements', JSON.stringify(ACHIEVEMENTS));
 }
 
 function unlockAchievement(achievementKey) {
@@ -481,10 +481,57 @@ function unlockAchievement(achievementKey) {
 	saveAchievements();
 	updateAchievementBadges();
 
-	// When a badge is met, schedule an automatic reset for single-win badges (not series badges)
+	// When a badge is met, show a non-blocking toast for the first-win badge
+	// (do NOT interrupt gameplay for this particular badge)
 	if (achievementKey === 'first-win') {
-		scheduleAutoReset();
+		try { showAchievementToast('First Badge Unlocked! You won your first game.'); } catch (e) { console.error(e); }
+		// do not schedule an auto-reset for first-win so gameplay continues uninterrupted
 	}
+}
+
+// Small non-blocking toast notification for achievement unlocks
+function showAchievementToast(message, duration = 3500) {
+	if (!document || !document.body) return;
+	const id = 'achievement-toast';
+	// Avoid duplicate toasts
+	if (document.getElementById(id)) return;
+
+	const toast = document.createElement('div');
+	toast.id = id;
+	toast.setAttribute('role', 'status');
+	toast.setAttribute('aria-live', 'polite');
+	toast.textContent = message;
+	Object.assign(toast.style, {
+		position: 'fixed',
+		right: '18px',
+		bottom: '86px',
+		zIndex: 9999,
+		background: 'linear-gradient(180deg, rgba(0,224,255,0.12), rgba(3,5,14,0.9))',
+		color: 'var(--text-main, #fff)',
+		padding: '10px 14px',
+		borderRadius: '10px',
+		border: '1px solid rgba(0,224,255,0.25)',
+		boxShadow: '0 6px 20px rgba(0,0,0,0.6)',
+		pointerEvents: 'none',
+		fontWeight: '700',
+		fontSize: '0.95rem',
+		opacity: '0',
+		transition: 'opacity 300ms ease, transform 300ms ease',
+		transform: 'translateY(6px)'
+	});
+
+	document.body.appendChild(toast);
+	// Force a reflow then animate in
+	/* eslint-disable no-unused-expressions */
+	void toast.offsetWidth;
+	toast.style.opacity = '1';
+	toast.style.transform = 'translateY(0)';
+
+	setTimeout(() => {
+		toast.style.opacity = '0';
+		toast.style.transform = 'translateY(6px)';
+		setTimeout(() => { try { toast.remove(); } catch (e) {} }, 320);
+	}, duration);
 }
 
 function updateAchievementBadges() {
