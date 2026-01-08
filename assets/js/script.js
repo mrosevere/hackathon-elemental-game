@@ -535,10 +535,11 @@ function showAchievementToast(message, duration = 3500) {
 		transition: 'opacity 300ms ease, transform 300ms ease'
 	};
 
-	// Determine whether this toast should be persistent (user must click to dismiss)
-	const isPersistent = !!(duration === 0 || (typeof duration === 'object' && duration && duration.persistent));
-	// If duration is a number and >0, use that; if 0 and persistent, do not auto-close
-	const autoCloseDuration = (typeof duration === 'number' && duration > 0) ? duration : null;
+	// Determine whether this toast should be persistent (no auto-close; must be dismissed by user or code)
+	const isDurationObject = typeof duration === 'object' && duration !== null;
+	const isPersistent = isDurationObject ? !!duration.persistent : duration === 0;
+	// Auto-close only when given a positive numeric duration; 0 or options objects never auto-close
+	const autoCloseDuration = (!isDurationObject && typeof duration === 'number' && duration > 0) ? duration : null;
 
 	if (arena) {
 		// Create (or reuse) an overlay container that fills the arena and centers content.
