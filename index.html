@@ -13,10 +13,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="manifest" href="assets/images/site.webmanifest">
-
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <!-- Bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 
 <body class="page-wrapper">
@@ -24,9 +27,9 @@
 <img src="assets/images/logo.png" alt="Game Logo" class="site-logo">
 
 <!-- Light Mode Toggle -->
-<div id="themeToggle" class="toggle-switch" role="button" tabindex="0">
-    <div class="toggle-circle"></div>
-</div>
+<button id="themeToggle" class="toggle-switch" aria-label="Toggle dark/light mode">
+    <span class="toggle-circle" aria-hidden="true"></span>
+</button>
 
 <header class="site-header">
     <h1>Stormbound</h1>
@@ -39,8 +42,6 @@
     <div class="modal" id="rulesModal">
         <div class="modal-content">
 
-            <button class="close-btn" id="closeModal">&times;</button>
-
             <div class="accordion">
 
                 <!-- LEFT TABS -->
@@ -52,17 +53,18 @@
 
                 <!-- RIGHT CONTENT -->
                 <div class="accordion-content">
+                    <button class="accordion-close" id="accordionClose" aria-label="Close">&times;</button>
 
                     <div class="content-section active" id="rules">
                         <h2>Rules</h2>
                         <p>
                             Stormbound: A Battle of the Elements is a modern take on Rock, Paper, Scissors.<br>
                             Choose from:<br>
-                            Water <img src="assets/images/water.png" alt="Water"><br>
-                            Fire <img src="assets/images/fire.png" alt="Fire"><br>
-                            Earth <img src="assets/images/earth.png" alt="Earth"><br>
-                            Air <img src="assets/images/air.png" alt="Air"><br>
-                            Lightning <img src="assets/images/lightning.png" alt="Lightning"><br>
+                            Water <img src="assets/images/water.png" alt="Image of Water element"><br>
+                            Fire <img src="assets/images/fire.png" alt="Image of Fire element"><br>
+                            Earth <img src="assets/images/earth.png" alt="Image of Earth element"><br>
+                            Air <img src="assets/images/air.png" alt="Image of Air element"><br>
+                            Lightning <img src="assets/images/lightning.png" alt="Image of Lightning element"><br>
                             After your choice, the computer selects its element after a countdown.
                         </p>
                     </div>
@@ -74,11 +76,11 @@
                                 <h2>Elements</h2>
                                 <p>The winner is determined based on the following rules:</p>
 
-                                <button class="sub-header active" data-element="water" aria-expanded="true">Water <img src="assets/images/water.png"></button>
-                                <button class="sub-header" data-element="fire" aria-expanded="false">Fire <img src="assets/images/fire.png"></button>
-                                <button class="sub-header" data-element="earth" aria-expanded="false">Earth <img src="assets/images/earth.png"></button>
-                                <button class="sub-header" data-element="air" aria-expanded="false">Air <img src="assets/images/air.png"></button>
-                                <button class="sub-header" data-element="lightning" aria-expanded="false">Lightning <img src="assets/images/lightning.png"></button>
+                                <button class="sub-header active" data-element="water" aria-expanded="true">Water <img src="assets/images/water.png" alt=""></button>
+                                <button class="sub-header" data-element="fire" aria-expanded="false">Fire <img src="assets/images/fire.png" alt=""></button>
+                                <button class="sub-header" data-element="earth" aria-expanded="false">Earth <img src="assets/images/earth.png" alt=""></button>
+                                <button class="sub-header" data-element="air" aria-expanded="false">Air <img src="assets/images/air.png" alt=""></button>
+                                <button class="sub-header" data-element="lightning" aria-expanded="false">Lightning <img src="assets/images/lightning.png" alt=""></button>
                             </div>
 
                             <div class="elements-content">
@@ -185,11 +187,11 @@
                         <p>
                             Earn points by beating the computer.<br>
                             A draw earns no points.<br>
-                            🥉 First Victory – Win any match
-                            🥈 Best of 3 Champion – Win a Best of 3 Round
-                            🥇 Best of 5 Champion – Win a Best of 5 Round
-                            👑 Endurance Master – Win a Best of 9 Round
-                            Hint: To win a round, win the majority of matches played!
+                            🥉 First Victory – Win any match <br>
+                            🥈 Best of 3 Champion – Win a Best of 3 Round<br>
+                            🥇 Best of 5 Champion – Win a Best of 5 Round<br>
+                            👑 Endurance Master – Win a Best of 9 Round<br>
+                            Hint: To win a round, win the majority of matches played! <br>
                             Good Luck!
                               </p>
                     </div>
@@ -209,13 +211,13 @@
     </div>
 
     <!-- ELEMENT ICON NAVIGATION -->
-    <nav class="element-icons" aria-label="Element win/loss chart">
+    <div class="element-icons" role="group" aria-label="Element win/loss chart">
         <img class="element-icon" src="assets/images/lightning.png" alt="Lightning" data-element="lightning">
         <img class="element-icon" src="assets/images/fire.png" alt="Fire" data-element="fire">
         <img class="element-icon" src="assets/images/air.png" alt="Air" data-element="air">
         <img class="element-icon" src="assets/images/earth.png" alt="Earth" data-element="earth">
         <img class="element-icon" src="assets/images/water.png" alt="Water" data-element="water">
-    </nav>
+    </div>
 
     <div id="element-tooltip" class="element-tooltip" role="status" aria-live="polite" hidden></div>
 
@@ -227,7 +229,6 @@
 <!-- GAME ARENA (below rules button, above footer) -->
 <section id="game-arena" class="game-arena">
     <div class="arena-header">
-        <h3>Stormbound</h3>
             <div class="mode-toggle" role="group" aria-label="Select game mode">
                 <button class="mode-btn is-active" data-mode="continuous" aria-pressed="true">Continuous</button>
                 <button class="mode-btn" data-mode="bo3" aria-pressed="false">Best of 3</button>
@@ -238,9 +239,9 @@
         <p>Select an element to challenge the computer.</p>
     </div>
     <!-- Local arena overlay with Play button -->
-    <div id="arenaOverlay" class="arena-overlay" aria-label="Activate Game">
+    <div id="arenaOverlay" class="arena-overlay" role="dialog" aria-label="Activate Game">
         <div class="overlay-inner">
-            <h4>Ready to Play?</h4>
+            <h3>Ready to Play?</h3>
             <button id="playButton" class="play-btn" aria-controls="game-arena">Play</button>
         </div>
     </div>
@@ -252,11 +253,11 @@
         <button class="arena-choice" data-choice="lightning"><img src="assets/images/lightning.png" alt="" aria-hidden="true"> Lightning</button>
     </div>
 
-    <div class="arena-picks" aria-label="Round selections">
+    <div class="arena-picks" role="group" aria-label="Round selections">
         <div class="arena-pick arena-pick--player" id="playerPick" aria-live="polite">
             <div class="arena-pick__label">You</div>
             <div class="arena-pick__value">
-                <img id="playerPickIcon" class="arena-pick__icon" src="" alt="" hidden>
+                <img id="playerPickIcon" class="arena-pick__icon" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Hidden player symbol" hidden>
                 <span id="playerPickText">—</span>
             </div>
         </div>
@@ -264,18 +265,18 @@
         <div class="arena-pick arena-pick--cpu" id="cpuPick" aria-live="polite">
             <div class="arena-pick__label">Computer</div>
             <div class="arena-pick__value">
-                <img id="cpuPickIcon" class="arena-pick__icon" src="" alt="" hidden>
+                <img id="cpuPickIcon" class="arena-pick__icon" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Hidden player symbol" hidden>
                 <span id="cpuPickText">—</span>
             </div>
         </div>
     </div>
 
-    <div class="arena-symbols" aria-label="Chosen symbols">
+    <div class="arena-symbols" role="group" aria-label="Chosen symbols">
         <div class="arena-symbol arena-symbol--player" id="playerSymbol" aria-live="polite">
-            <img id="playerSymbolIcon" class="arena-symbol__icon" src="" alt="" hidden>
+            <img id="playerSymbolIcon" class="arena-symbol__icon" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Hidden player symbol" hidden>
         </div>
         <div class="arena-symbol arena-symbol--cpu" id="cpuSymbol" aria-live="polite">
-            <img id="cpuSymbolIcon" class="arena-symbol__icon" src="" alt="" hidden>
+            <img id="cpuSymbolIcon" class="arena-symbol__icon" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Hidden player symbol" hidden>
         </div>
     </div>
     <div class="arena-status" id="arenaStatus" aria-live="polite"></div>
@@ -291,12 +292,30 @@
         <p class="round-label">Round</p>
         <p class="round-display"><span id="roundValue">0</span></p>
     </div>
-    <button id="resetButton" class="reset-btn">Reset Game</button>
+    <!-- Arena footer: reset button and progress (stacked, non-overlapping) -->
+    <div class="arena-footer">
+        <button id="resetButton" class="reset-btn">Reset Game</button>
+        <div class="arena-progress-container" id="badgeProgress" aria-hidden="true">
+            <div class="arena-progress-inner">
+                <div class="arena-progress-label" id="progressLabel">Progress</div>
+                <div class="arena-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+                    <div class="arena-progress-fill" id="progressFill"></div>
+                    <div class="progress-markers"></div>
+                    <div class="progress-medal" aria-hidden="true">🏅</div>
+                </div>
+                <div class="arena-progress-caption" id="progressCaption" aria-live="polite">Ready</div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- ACHIEVEMENT BADGES -->
 <section class="achievements-section">
     <h3 class="achievements-title">Achievements</h3>
+    <p class="achievements-note">Badges are saved in your browser and persist across sessions.</p>
+
+    <!-- Progress moved into the arena footer for better visibility -->
+
     <div class="achievements-grid">
         <div class="achievement-badge" data-achievement="first-win" title="First Victory – Win any match">
             <div class="badge-icon">🥉</div>
@@ -324,16 +343,32 @@
 
     <div class="footer-center">
         <p class="dev-title">Developers:</p>
-        <p class="credits">Abdalla • André • Mark • Mohammad • Nathalie</p>
+        <p class="credits">
+            <a href="https://github.com/AbdallaMed" target="_blank" rel="noopener">Abdalla</a> •
+            <a href="https://github.com/rikity432" target="_blank" rel="noopener">André</a> •
+            <a href="https://github.com/mrosevere" target="_blank" rel="noopener">Mark</a> •
+            <a href="https://github.com/ididit374-lgtm" target="_blank" rel="noopener">Mohammad</a> •
+            <a href="https://github.com/njthomas1991-hub" target="_blank" rel="noopener">Nathalie</a>
+        </p>
     </div>
 
     <div class="footer-right">
-        <a href="https://www.facebook.com"><i class="fab fa-facebook fa-2x"></i></a>
-        <a href="https://www.twitter.com"><i class="fab fa-x-twitter fa-2x"></i></a>
-        <a href="https://www.instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
+        <a href="https://www.facebook.com" aria-label="Visit our Facebook page">
+            <i class="fab fa-facebook fa-2x" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.twitter.com" aria-label="Visit our Twitter page">
+            <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com" aria-label="Visit our Instagram page">
+            <i class="fab fa-instagram fa-2x" aria-hidden="true"></i>
+        </a>
     </div>
 </footer>
 
+
+<!-- Bootstrap JavaScript Script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- Custom JS script -->
 <script src="assets/js/script.js"></script>
 
 </body>

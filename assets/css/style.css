@@ -22,6 +22,7 @@
     --transition-fast: 150ms ease-out;
     --transition-med: 220ms ease-out;
     --glass-blur: blur(18px);
+    --arena-footer-height: 140px;
 }
 
 body.page-wrapper {
@@ -37,9 +38,9 @@ body.page-wrapper {
 /* ========== NEW: SITE LOGO (MOVED FROM FOOTER) ========== */
 .site-logo {
     position: fixed;
-    top: 16px;
-    left: 16px;
-    width: 48px;
+    top: clamp(8px, 2vw, 16px);
+    left: clamp(8px, 2vw, 16px);
+    width: clamp(32px, 6vw, 48px);
     height: auto;
     z-index: 1000;
 }
@@ -47,10 +48,10 @@ body.page-wrapper {
 /* ========== THEME TOGGLE ========== */
 .toggle-switch {
     position: fixed;
-    top: 16px;
-    right: 16px;
-    width: 54px;
-    height: 30px;
+    top: clamp(8px, 2vw, 16px);
+    right: clamp(8px, 2vw, 16px);
+    width: clamp(48px, 9vw, 54px);
+    height: clamp(28px, 5vw, 30px);
     border-radius: var(--radius-pill);
     border: 1px solid rgba(255, 255, 255, 0.35);
     background: radial-gradient(circle at 10% 0, #3b8dff 0, #141927 38%, #04050a 100%);
@@ -64,8 +65,8 @@ body.page-wrapper {
 }
 
 .toggle-circle {
-    width: 22px;
-    height: 22px;
+    width: clamp(18px, 4vw, 22px);
+    height: clamp(18px, 4vw, 22px);
     border-radius: 50%;
     background: radial-gradient(circle at 30% 20%, #ffffff 0, #e0f5ff 36%, #7ad1ff 100%);
     box-shadow: 0 0 18px rgba(0, 224, 255, 0.9);
@@ -74,16 +75,16 @@ body.page-wrapper {
 }
 
 body.light-mode .toggle-circle {
-    transform: translateX(22px);
+    transform: translateX(clamp(16px, 3vw, 22px));
 }
 
 /* ========== RULES BUTTON (MATCHED TO TOGGLE) ========== */
 .rules-btn {
     position: relative;
     z-index: 10;
-    margin: 12px auto 8px;
-    width: 120px;
-    height: 38px;
+    margin: clamp(8px, 2vw, 12px) auto clamp(6px, 1.5vw, 8px);
+    width: clamp(100px, 25vw, 120px);
+    height: clamp(36px, 8vw, 38px);
     padding: 0;
 
     display: flex;
@@ -95,7 +96,7 @@ body.light-mode .toggle-circle {
     background: radial-gradient(circle at 10% 0, #3b8dff 0, #141927 38%, #04050a 100%);
     color: var(--text-main);
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     cursor: pointer;
@@ -123,13 +124,13 @@ body.light-mode .rules-btn:hover {
 /* ========== HEADER ========== */
 .site-header {
     text-align: center;
-    padding: 42px 16px 24px;
+    padding: clamp(24px, 6vw, 42px) clamp(12px, 4vw, 16px) clamp(16px, 4vw, 24px);
 }
 
 .site-header h1 {
     margin: 0;
     font-family: "Concert One", system-ui;
-    font-size: clamp(2.6rem, 4vw, 3.4rem);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: #f8fbff;
@@ -139,8 +140,8 @@ body.light-mode .rules-btn:hover {
 }
 
 .site-header h2 {
-    margin: 10px 0 0;
-    font-size: clamp(1.05rem, 2.3vw, 1.3rem);
+    margin: clamp(6px, 1.5vw, 10px) 0 0;
+    font-size: clamp(0.85rem, 2vw, 1.3rem);
     font-weight: 500;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -153,7 +154,7 @@ body.light-mode .rules-btn:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 16px 32px;
+    padding: 0 clamp(8px, 3vw, 16px) clamp(20px, 5vw, 32px);
 }
 
 /* ========== GAME OVERLAY ========== */
@@ -204,50 +205,60 @@ body.light-mode .rules-btn:hover {
     display: block;
     width: min(960px, 100%);
     max-width: 95vw;
-    margin: 16px auto;
+    margin: clamp(12px, 3vw, 16px) auto;
     background: radial-gradient(circle at top left, rgba(0, 224, 255, 0.18) 0, rgba(3, 5, 14, 0.98) 52%);
-    border-radius: 20px;
-    padding: 24px;
-    padding-bottom: 140px;
+    border-radius: clamp(12px, 3vw, 20px);
+    padding: clamp(16px, 4vw, 26px);
+    padding-bottom: clamp(220px, 30vw, 320px);
     flex: 1 1 auto;
     min-height: 0;
     position: relative;
 }
 
 .arena-header h3 {
-    margin: 0 0 8px;
+    margin: 0 0 clamp(4px, 1vw, 8px);
     text-align: center;
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: 700;
 }
 
 .arena-header p {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     font-weight: 600;
     margin: 0;
 }
 
+/* Ensure header controls (mode buttons) sit above the play overlay so they remain clickable */
+.arena-header {
+    position: relative;
+    z-index: 4;
+}
+
 .mode-toggle {
     display: flex;
-    gap: 10px;
+    gap: clamp(6px, 1.5vw, 10px);
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin: 10px 0 6px;
+    margin: clamp(8px, 2vw, 10px) 0 clamp(4px, 1vw, 6px);
 }
 
 .mode-btn {
-    padding: 10px 14px;
+    padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 14px);
     border-radius: var(--radius-pill);
     border: 1px solid var(--border-subtle);
     background: radial-gradient(circle at 10% 0, rgba(0, 224, 255, 0.12) 0, rgba(4, 6, 12, 0.92) 70%);
     color: var(--text-main);
     font-weight: 700;
+    font-size: clamp(0.65rem, 1.8vw, 0.9rem);
     letter-spacing: 0.04em;
     text-transform: uppercase;
     cursor: pointer;
     transition: background var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med), transform var(--transition-fast);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .mode-btn:hover,
@@ -256,6 +267,27 @@ body.light-mode .rules-btn:hover {
     box-shadow: 0 0 0 1px rgba(0, 224, 255, 0.25), 0 10px 24px rgba(0, 0, 0, 0.55);
     outline: none;
     transform: translateY(-1px);
+}
+
+/* Improve touch and keyboard accessibility for interactive controls */
+.mode-btn,
+.play-btn,
+.arena-choice,
+.reset-btn,
+.rules-btn,
+.close-btn,
+.toggle-switch {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.08);
+}
+
+.play-btn:focus-visible,
+.reset-btn:focus-visible,
+.rules-btn:focus-visible,
+.close-btn:focus-visible,
+.toggle-switch:focus-visible {
+    outline: 3px solid rgba(0, 224, 255, 0.55);
+    outline-offset: 3px;
 }
 
 .mode-btn.is-active {
@@ -304,37 +336,53 @@ body.light-mode .mode-btn.is-active {
     }
     
     .game-arena {
-        padding-bottom: 160px;
+        padding-bottom: clamp(280px, 35vw, 320px);
     }
-    
+
+    /* Inline layout: left score, round counter (center), right score */
+    .score-box,
+    .score-box-opponent,
+    .round-counter {
+        position: absolute;
+        bottom: calc(var(--arena-footer-height, 140px) + 10px);
+        top: auto;
+        transform: none;
+        box-sizing: border-box;
+    }
+
+    /* Shrink controls on small screens so all three fit side-by-side */
     .score-box,
     .score-box-opponent {
-        bottom: 90px;
-        min-width: 95px;
-        padding: 10px 12px;
+        width: 22%;
+        padding: 4px 6px;
+        min-width: 56px;
     }
-    
-    .score-box {
-        left: 12px;
+
+    .score-box { left: 5%; }
+    .score-box-opponent { right: 5%; }
+
+    .round-counter {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36%;
+        padding: 6px 8px;
+        min-width: 72px;
+        min-height: 36px;
     }
-    
-    .score-box-opponent {
-        right: 12px;
-    }
-    
+
     .reset-btn {
         bottom: 12px;
         padding: 10px 20px;
         font-size: 0.8rem;
     }
-    
+
     .score-label {
         font-size: 0.7rem;
     }
-    
+
     .round-display,
     .score-value {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 }
 .arena-choice {
@@ -342,17 +390,18 @@ body.light-mode .mode-btn.is-active {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    padding: 14px 16px;
-    border-radius: 12px;
+    gap: clamp(8px, 1.5vw, 10px);
+    padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 16px);
+    border-radius: clamp(8px, 2vw, 12px);
     border: 1px solid var(--border-subtle);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.08) 0, rgba(3, 5, 14, 0.98) 60%);
     color: var(--text-main);
-    font-size: 1.05rem;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
     font-weight: 600;
     cursor: pointer;
     transition: transform var(--transition-fast), box-shadow var(--transition-med), background var(--transition-med), border-color var(--transition-med), filter var(--transition-med);
     will-change: transform;
+    min-height: 44px;
 }
 
 .arena-choice:hover {
@@ -493,14 +542,14 @@ body.light-mode .mode-btn.is-active {
 }
 
 .arena-choice img {
-    max-width: 36px;
+    max-width: clamp(24px, 5vw, 36px);
     height: auto;
 }
 
 .arena-status {
-    margin-top: 16px;
-    min-height: 28px;
-    font-size: 1.2rem;
+    margin-top: clamp(12px, 2vw, 16px);
+    min-height: clamp(24px, 4vw, 28px);
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
     font-weight: 700;
     text-align: center;
     color: var(--text-muted);
@@ -509,19 +558,19 @@ body.light-mode .mode-btn.is-active {
 
 .score-box {
     position: absolute;
-    bottom: 70px;
-    left: 18px;
+    bottom: calc(var(--arena-footer-height, 140px) + clamp(18px, 3vw, 28px));
+    left: clamp(8px, 2vw, 18px);
     background: rgba(0, 224, 255, 0.15);
     border: 1px solid rgba(0, 224, 255, 0.35);
-    border-radius: 12px;
-    padding: 12px 16px;
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
     backdrop-filter: var(--glass-blur);
-    min-width: 110px;
+    min-width: clamp(90px, 18vw, 110px);
 }
 
 .score-box-opponent {
     left: auto;
-    right: 18px;
+    right: clamp(8px, 2vw, 18px);
     background: rgba(255, 75, 110, 0.15);
     border-color: rgba(255, 75, 110, 0.35);
 }
@@ -538,40 +587,73 @@ body.light-mode .mode-btn.is-active {
 
 .score-label {
     margin: 0;
-    font-size: 0.75rem;
+    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--text-muted);
 }
 
-.round-value {
-    margin: 4px 0 0;
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
-}
-
-.score-value {
-    margin: 4px 0 0;
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
-}
-
 .round-counter {
     position: absolute;
-    bottom: 70px;
+    /* align vertically with the score boxes */
+    bottom: calc(var(--arena-footer-height, 140px) + clamp(12px, 2vw, 20px));
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 12px;
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
     backdrop-filter: var(--glass-blur);
     text-align: center;
+    z-index: 50; /* placed behind overlay but above footer */
+    min-width: clamp(90px, 18vw, 160px);
+    min-height: 44px; /* match reset/score control height */
+    pointer-events: auto;
+}
+
+.round-counter.pulse {
+    animation: round-pulse 520ms cubic-bezier(.2,.9,.2,1) 1;
+}
+
+@keyframes round-pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    30% { transform: translateX(-50%) scale(1.08); }
+    60% { transform: translateX(-50%) scale(0.98); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+/* Responsive adjustments for the round counter */
+@media (max-width: 768px) {
+    .round-counter {
+        bottom: calc(var(--arena-footer-height, 140px) + clamp(12px, 2vw, 20px));
+        padding: clamp(8px, 1.6vw, 12px) clamp(8px, 4vw, 14px);
+        min-width: clamp(84px, 20vw, 140px);
+    }
+    .round-display { font-size: clamp(1.1rem, 3.2vw, 1.4rem); }
+}
+
+@media (max-width: 600px) {
+    .round-counter {
+        bottom: calc(var(--arena-footer-height, 140px) + 10px);
+        padding: 8px 10px;
+        min-width: 110px;
+    }
+    .round-display { font-size: 1.1rem; }
+    .round-label { font-size: 0.65rem; }
+}
+
+@media (max-width: 480px) {
+    .round-counter {
+        bottom: calc(var(--arena-footer-height, 140px) + 14px);
+        padding: 6px 8px;
+        min-width: 95px;
+    }
+    .round-display { font-size: 1rem; }
+    .round-label { font-size: 0.6rem; }
 }
 
 .round-label {
@@ -592,22 +674,26 @@ body.light-mode .mode-btn.is-active {
 }
 
 .reset-btn {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    z-index: 6;
+    bottom: auto;
+    left: auto;
+    transform: none;
     background: rgba(160, 168, 192, 0.15);
     border: 1px solid rgba(160, 168, 192, 0.35);
-    border-radius: 12px;
-    padding: 12px 24px;
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(10px, 2vw, 12px) clamp(16px, 3vw, 24px);
     backdrop-filter: var(--glass-blur);
     color: var(--text-main);
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     cursor: pointer;
     transition: background var(--transition-med), box-shadow var(--transition-med), transform var(--transition-fast);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .reset-btn:hover {
@@ -676,7 +762,7 @@ body.light-mode .reset-btn:hover {
     display: grid;
     grid-template-columns: 1fr;
     gap: 6px;
-    min-height: 64px;
+    min-height: 56px;
     transition: transform var(--transition-fast), box-shadow var(--transition-med), border-color var(--transition-med), filter var(--transition-med);
     --element-accent: var(--accent);
     will-change: transform;
@@ -750,7 +836,7 @@ body.light-mode .reset-btn:hover {
     position: relative;
     display: grid;
     place-items: center;
-    min-height: 160px;
+    min-height: 120px;
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.06) 0, rgba(3, 5, 14, 0.98) 70%);
@@ -798,12 +884,132 @@ body.light-mode .reset-btn:hover {
 }
 
 .arena-symbol__icon {
-    width: 124px;
-    height: 124px;
+    width: 96px;
+    height: 96px;
     object-fit: contain;
     filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.65));
     transform-origin: center;
     will-change: transform, filter, opacity;
+}
+
+/* ========== EXTRA SMALL DEVICES (320px - 480px) ========== */
+@media (max-width: 480px) {
+    .site-logo {
+        width: clamp(28px, 8vw, 36px);
+        top: 8px;
+        left: 8px;
+    }
+
+    .toggle-switch {
+        width: 44px;
+        height: 24px;
+        top: 8px;
+        right: 8px;
+    }
+
+    .site-header {
+        padding: 16px 8px 12px;
+    }
+
+    .site-header h1 {
+        font-size: clamp(1.8rem, 6vw, 2.4rem);
+        letter-spacing: 0.08em;
+    }
+
+    .site-header h2 {
+        font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+        margin-top: 4px;
+        letter-spacing: 0.2em;
+    }
+
+    .game-arena {
+        padding: 12px;
+        padding-bottom: 320px;
+        margin: 8px auto;
+    }
+
+    .mode-btn {
+        font-size: 0.6rem;
+        padding: 6px 10px;
+        min-height: 40px;
+    }
+
+    .arena-choice {
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .score-box {
+        bottom: 150px;
+        padding: 6px 8px;
+        min-width: 60px;
+    }
+
+    .score-label {
+        font-size: 0.55rem;
+    }
+
+    .round-value,
+    .score-value {
+        font-size: 1.2rem;
+        margin-top: 2px;
+    }
+
+    .reset-btn {
+        min-height: 40px;
+        padding: 8px 14px;
+        font-size: 0.65rem;
+    }
+
+    .achievement-badge {
+        min-width: 90px;
+        padding: 10px;
+        gap: 4px;
+    }
+
+    .badge-icon {
+        font-size: 1.8rem;
+    }
+
+    .badge-label {
+        font-size: 0.65rem;
+    }
+
+    .arena-symbol {
+        min-height: 100px;
+    }
+
+    .arena-symbol__icon {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* ========== SMALL MOBILE (480px - 768px) ========== */
+@media (max-width: 768px) and (min-width: 481px) {
+    .game-arena {
+        padding: 14px;
+        padding-bottom: 280px;
+    }
+
+    .mode-btn {
+        font-size: 0.7rem;
+        padding: 8px 12px;
+    }
+
+    .arena-choice {
+        font-size: 0.95rem;
+    }
+
+    .arena-symbol {
+        min-height: 140px;
+    }
+
+    .arena-symbol__icon {
+        width: 110px;
+        height: 110px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -814,28 +1020,28 @@ body.light-mode .reset-btn:hover {
         width: 104px;
         height: 104px;
     }
-    
+
     .achievements-section {
         padding: 20px 12px;
     }
-    
+
     .achievements-title {
         font-size: 1.4rem;
     }
-    
+
     .achievements-grid {
         gap: 12px;
     }
-    
+
     .achievement-badge {
         min-width: 100px;
         padding: 12px;
     }
-    
+
     .badge-icon {
         font-size: 2.2rem;
     }
-    
+
     .badge-label {
         font-size: 0.75rem;
     }
@@ -1050,10 +1256,39 @@ body.light-mode .reset-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at top, rgba(15, 25, 60, 0.70) 0, rgba(3, 4, 10, 0.82) 60%);
+    background: radial-gradient(circle at top, rgba(15, 25, 60, 0.82) 0, rgba(3, 4, 10, 0.9) 60%);
     backdrop-filter: blur(6px);
-    border-radius: 20px;
-    z-index: 2;
+    border-radius: inherit;
+    z-index: 60; /* high enough to cover internal arena controls */
+    pointer-events: auto; /* intercept clicks until dismissed */
+}
+
+/* Decorative logo behind Play text (non-interactive) */
+.arena-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Prefer optimized WebP for faster loading; fallback file logo.png still present */
+    background-image: url('../images/logo.png');
+    background-image: url('../images/logo.webp');
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* Fill the arena area while preserving aspect ratio */
+    background-size: cover;
+    opacity: 0.3;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Ensure the play overlay blocks the entire arena until activated */
+.game-arena:not(.is-active) .arena-overlay {
+    display: flex;
+    pointer-events: auto;
+}
+
+.game-arena.is-active .arena-overlay {
+    display: none;
+    pointer-events: none;
 }
 
 .arena-overlay .overlay-inner {
@@ -1063,6 +1298,40 @@ body.light-mode .reset-btn:hover {
     padding: 18px 22px;
     color: var(--text-main);
     box-shadow: var(--shadow-soft);
+    position: relative;
+    z-index: 2; /* sit above the decorative logo */
+}
+
+/* Responsive tuning for the decorative overlay logo so it doesn't crop on small screens */
+@media (max-width: 900px) {
+    .arena-overlay::before {
+        /* prefer contain on narrower viewports so the full logo remains visible */
+        background-size: contain;
+        background-position: center 45%;
+        opacity: 0.18;
+    }
+}
+
+@media (max-width: 600px) {
+    .arena-overlay::before {
+        background-size: contain;
+        background-position: center 48%;
+        opacity: 0.14;
+    }
+    .arena-overlay {
+        background: radial-gradient(circle at top, rgba(15, 25, 60, 0.88) 0, rgba(3, 4, 10, 0.94) 60%);
+    }
+}
+
+@media (max-width: 480px) {
+    .arena-overlay::before {
+        background-size: contain;
+        background-position: center 52%;
+        opacity: 0.12;
+    }
+    .arena-overlay .overlay-inner {
+        padding: 12px 14px;
+    }
 }
 
 .arena-overlay.hidden {
@@ -1106,10 +1375,10 @@ body.light-mode .reset-btn:hover {
 
 .close-btn {
     position: absolute;
-    right: 16px;
-    top: 12px;
-    width: 32px;
-    height: 32px;
+    right: clamp(12px, 3vw, 16px);
+    top: clamp(10px, 2vw, 12px);
+    width: clamp(28px, 6vw, 32px);
+    height: clamp(28px, 6vw, 32px);
     border-radius: 999px;
     background: radial-gradient(circle at 20% 0, #ff668a 0, #510818 100%);
     color: #ffffff;
@@ -1119,14 +1388,14 @@ body.light-mode .reset-btn:hover {
 /* ========== RESULT MODAL ========== */
 .result-modal-content {
     text-align: center;
-    padding: 48px 32px;
-    max-width: 500px;
+    padding: clamp(24px, 5vw, 48px) clamp(20px, 5vw, 32px);
+    max-width: clamp(280px, 90vw, 500px);
 }
 
 .result-message {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 3rem);
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: clamp(12px, 2.5vw, 16px);
     background: linear-gradient(135deg, #00e0ff, #7a5cff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1148,17 +1417,17 @@ body.light-mode .reset-btn:hover {
 }
 
 .result-subtext {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     color: var(--text-main);
-    margin-bottom: 32px;
+    margin-bottom: clamp(20px, 5vw, 32px);
     opacity: 0.9;
 }
 
 .result-btn {
-    padding: 12px 36px;
-    font-size: 1.1rem;
+    padding: clamp(10px, 2vw, 12px) clamp(24px, 5vw, 36px);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     font-weight: bold;
-    border-radius: 12px;
+    border-radius: clamp(8px, 2vw, 12px);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.2) 0, rgba(4, 8, 20, 0.96) 52%);
     color: var(--text-main);
     border: 2px solid rgba(0, 224, 255, 0.3);
@@ -1178,6 +1447,60 @@ body.light-mode .reset-btn:hover {
     grid-template-columns: 260px 1fr;
     column-gap: 12px;
     margin-top: 10px;
+}
+
+/* Close button inside accordion content */
+.accordion-close {
+    /* default: keep in-flow so it doesn't float to viewport corners when placed outside the panel */
+    position: static;
+    width: clamp(28px, 6vw, 36px);
+    height: clamp(28px, 6vw, 36px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.28);
+    color: #ffffff;
+    font-size: clamp(18px, 4vw, 22px);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 60; /* raise above nearby content */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.accordion-close:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.04);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+}
+
+.accordion-close:focus-visible {
+    outline: 3px solid rgba(0, 224, 255, 0.55);
+    outline-offset: 3px;
+}
+
+/* If the button markup does not include text, show a clear cross glyph for accessibility */
+.accordion-close:empty::before {
+    /* only inject glyph when the button has no inner text/icon */
+    content: "✕";
+    font-size: 1em;
+    line-height: 1;
+    display: block;
+    transform: translateY(-1px);
+}
+
+/* Light-mode contrast: ensure button remains visible on pale backgrounds */
+body.light-mode .accordion-close {
+    background: rgba(0,0,0,0.32);
+    color: #ffffff;
+    border-color: rgba(0,0,0,0.24);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+}
+
+body.light-mode .accordion-close:hover {
+    background: rgba(0,0,0,0.44);
 }
 
 .accordion-tabs {
@@ -1204,9 +1527,18 @@ body.light-mode .reset-btn:hover {
 }
 
 .accordion-content {
+    position: relative; /* anchor for .accordion-close */
     border-radius: 20px;
     padding: 20px 24px;
     background: radial-gradient(circle at top left, rgba(0, 224, 255, 0.18) 0, rgba(3, 5, 14, 0.98) 52%);
+}
+
+/* Only position the close button absolutely when it is a child of the accordion content
+   This prevents the button from floating to the top-right of the viewport if it's rendered elsewhere. */
+.accordion-content .accordion-close {
+    position: absolute;
+    top: clamp(8px, 2vw, 12px);
+    right: clamp(8px, 2vw, 12px);
 }
 
 .content-section {
@@ -1336,15 +1668,15 @@ body.light-mode .reset-btn:hover {
 /* ========== ACHIEVEMENTS ========== */
 .achievements-section {
     max-width: 1200px;
-    margin: 32px auto 24px;
-    padding: 24px 16px;
+    margin: clamp(20px, 4vw, 32px) auto clamp(16px, 3vw, 24px);
+    padding: clamp(16px, 3vw, 24px) clamp(12px, 3vw, 16px);
     text-align: center;
 }
 
 .achievements-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 3vw, 20px);
     background: linear-gradient(135deg, #00e0ff, #7a5cff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1354,23 +1686,168 @@ body.light-mode .reset-btn:hover {
 .achievements-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: clamp(12px, 2vw, 20px);
     justify-content: center;
     align-items: center;
+}
+
+.achievements-note {
+    margin: clamp(6px, 1.5vw, 10px) 0 0;
+    font-size: clamp(0.75rem, 1.4vw, 0.9rem);
+    color: var(--text-muted);
+    opacity: 0.95;
+}
+
+/* Badge progress bar */
+.progress-container {
+    margin: clamp(8px, 2vw, 12px) 0;
+    width: 100%;
+    max-width: 720px;
+    display: block;
+}
+.progress-label {
+    font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+    color: var(--text-main);
+    margin-bottom: clamp(6px, 1.5vw, 8px);
+    font-weight: 700;
+}
+.arena-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    min-height: var(--arena-footer-height);
+    pointer-events: none;
+    z-index: 6;
+}
+
+.arena-footer > * { pointer-events: auto; }
+
+.arena-progress-container {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    display: block;
+    justify-content: center;
+    pointer-events: auto;
+    width: 100%;
+}
+.arena-progress-inner {
+    width: min(920px, 96%);
+    max-width: 920px;
+    pointer-events: auto;
+}
+.arena-progress-label {
+    font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+    color: var(--text-main);
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-align: left;
+}
+.arena-progress-track {
+    position: relative;
+    width: 100%;
+    height: clamp(12px, 1.2vw, 16px);
+    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.03));
+    border-radius: 999px;
+    overflow: visible;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45) inset;
+}
+.arena-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(0,224,255,0.9), rgba(96,239,255,0.7));
+    border-radius: 999px;
+    transition: width 420ms cubic-bezier(.2,.8,.2,1);
+}
+.progress-markers {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -28px;
+    height: 24px;
+    pointer-events: none;
+}
+.progress-markers .marker {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.progress-markers .marker span {
+    background: rgba(0,0,0,0.6);
+    color: var(--text-main);
+    padding: 6px 8px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+    transition: opacity 360ms ease, transform 360ms cubic-bezier(.2,.9,.25,1);
+}
+.progress-markers .marker.visible span {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.progress-medal {
+    position: absolute;
+    right: -6px;
+    top: -18px;
+    font-size: clamp(20px, 3.2vw, 28px);
+    transform: translateX(6px);
+    text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Ensure progress sits above footer elements but below modal overlays */
+.arena-progress-container {
+    z-index: 6;
+}
+
+@media (max-width: 600px) {
+    .arena-progress-label { font-size: 0.72rem; }
+    .progress-markers .marker span { font-size: 0.64rem; padding: 6px 6px; }
+    .progress-medal { font-size: 20px; top: -14px; }
+}
+
+/* Caption below the progress track */
+.arena-progress-caption {
+    margin-top: 8px;
+    text-align: center;
+    color: var(--text-main);
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 700;
+    opacity: 0.95;
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+@media (max-width: 600px) {
+    .arena-progress-caption { font-size: 0.85rem; }
+}
+.progress-track[aria-valuenow="100"] .progress-fill {
+    box-shadow: 0 0 18px rgba(0,224,255,0.45);
 }
 
 .achievement-badge {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 16px;
-    border-radius: 16px;
+    gap: clamp(4px, 1vw, 8px);
+    padding: clamp(12px, 2vw, 16px);
+    border-radius: clamp(12px, 2vw, 16px);
     background: radial-gradient(circle at 0 0, rgba(0, 224, 255, 0.05) 0, rgba(4, 8, 20, 0.8) 52%);
     border: 2px solid rgba(255, 255, 255, 0.1);
-    min-width: 140px;
+    min-width: clamp(110px, 22vw, 140px);
     transition: all 0.4s ease;
     cursor: help;
+    touch-action: manipulation;
 }
 
 .achievement-badge:not(.unlocked) {
@@ -1406,13 +1883,13 @@ body.light-mode .reset-btn:hover {
 }
 
 .badge-icon {
-    font-size: 3rem;
+    font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .badge-label {
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 1.8vw, 0.9rem);
     font-weight: 600;
     color: var(--text-main);
     text-align: center;
@@ -1425,22 +1902,50 @@ body.light-mode .reset-btn:hover {
     background-clip: text;
 }
 
-/* ========== FOOTER ========== */
+/* ========== FOOTER RESPONSIVE ========== */
 .site-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     background: radial-gradient(circle at top, rgba(8, 12, 30, 0.96) 0, rgba(2, 3, 8, 0.98) 70%);
-    padding: 10px 16px;
+    padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px);
     display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 2vw, 12px);
     justify-content: space-between;
     color: var(--text-muted);
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+}
+
+@media (min-width: 769px) {
+    .site-footer {
+        flex-direction: row;
+        gap: 0;
+    }
 }
 
 /* ========== NEW: CENTER "DEVELOPERS:" TEXT ========== */
 .footer-center {
     text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Remove link styling from developer names */
+.footer-center .credits a {
+    text-decoration: none;
+    color: inherit;
 }
 
 /* ========== NEW: SOCIAL ICON BRAND COLORS ========== */
+.footer-right {
+    position: relative;
+    z-index: 1;
+}
+
+/* Remove underline from social icons */
+.footer-right a {
+    text-decoration: none !important;
+}
+
 .footer-right a i {
     color: inherit;
 }
@@ -1449,8 +1954,9 @@ body.light-mode .reset-btn:hover {
     color: #1877F2;
 }
 
-.footer-right .fa-x-twitter {
-    color: #000000;
+/* Updated to classic Twitter bird */
+.footer-right .fa-twitter {
+    color: #1DA1F2;
 }
 
 .footer-right .fa-instagram {
@@ -1535,7 +2041,6 @@ body.light-mode .game-arena {
 }
 
 body.light-mode .arena-overlay {
-    /* Keep a dimming layer in light mode while matching overall theme */
     background: rgba(0, 0, 0, 0.35);
 }
 
@@ -1556,4 +2061,29 @@ body.light-mode .arena-choice {
 body.light-mode .arena-choice:hover {
     border-color: #4a8cff;
     background: #e4edff;
+}
+
+body.light-mode .arena-pick {
+    background: #f5f7ff;
+    color: #222;
+    border: 1px solid #d0d7e2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .arena-pick__label {
+    color: #555;
+}
+
+body.light-mode .arena-pick__value {
+    color: #222;
+}
+
+body.light-mode .arena-symbol {
+    background: #f5f7ff;
+    border: 1px solid #d0d7e2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .arena-symbol__icon {
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
 }
