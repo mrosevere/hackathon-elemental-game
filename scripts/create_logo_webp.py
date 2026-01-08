@@ -5,8 +5,9 @@ Create an optimized WebP version of assets/images/logo.png, resized to a max wid
 import os, sys
 from PIL import Image
 
-SRC = os.path.abspath('assets/images/logo.png')
-OUT = os.path.abspath('assets/images/logo.webp')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.join(SCRIPT_DIR, 'assets', 'images', 'logo.png')
+OUT = os.path.join(SCRIPT_DIR, 'assets', 'images', 'logo.webp')
 MAX_W = 400
 QUALITY = 80
 
