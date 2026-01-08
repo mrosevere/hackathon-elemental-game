@@ -52,7 +52,9 @@ def main():
     # Compute new size
     new_w = max_w
     new_h = int(round((new_w / width) * height))
-    img = img.resize((new_w, new_h), Image.LANCZOS)
+    # Use Pillow's Resampling enum when available (Pillow >= 9.1 / 10), fallback for older versions
+    resample_filter = getattr(Image, "Resampling", Image).LANCZOS
+    img = img.resize((new_w, new_h), resample=resample_filter)
 
     out_path = inp
     ext_low = ext.lower()
